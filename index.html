@@ -320,16 +320,140 @@ button{ -webkit-tap-highlight-color:transparent }
 @media(max-width:380px){:root{--mini-footer:124px}#userDockToggle{font-size:10px!important;padding:0 8px!important}#dockScroller button{font-size:10px!important;padding:7px 8px!important}#marketPanel .marketGrid{gap:6px}.marketCard .mBody{padding:6px}}
 @media(max-height:570px){:root{--mini-footer:110px}.tileCard,.tileAdd{height:48px!important;width:48px!important;flex-basis:48px!important}.footerTop{min-height:17px}#bottomDock{height:42px;min-height:42px}}
 
+
+/* ===== ROMEROS AI / GAME MARKET, RESPONSIVE SQUARE PREVIEW ===== */
+.game-ai-order,.game-ai-preview{width:min(680px,calc(100vw - 18px))!important;max-height:min(90dvh,850px)!important;overflow-y:auto!important;z-index:145!important;background:#1a2837!important;border:0!important;box-shadow:none!important}
+.game-ai-field{display:grid!important;gap:5px;margin:9px 0!important;color:#b5c8dc!important;font-size:12px!important}
+.game-ai-field :is(select,textarea){font:inherit;border:0;outline:0;border-radius:9px;background:#243648;color:#eef5ff;padding:10px;min-height:36px;width:100%;max-width:100%;resize:vertical}
+.game-ai-field textarea{min-height:96px}
+.game-ai-actions{display:flex;gap:6px;flex-wrap:wrap;margin:9px 0}
+.game-ai-actions button,.game-ai-upload{padding:9px 12px!important;background:#293d51!important;border-radius:9px!important;border:0!important;cursor:pointer;color:#ebf2ff;font-size:12px;display:inline-flex;align-items:center}
+.game-ai-actions .game-ai-primary{background:#3796dc!important;color:#061626!important;font-weight:800}
+.game-ai-summary{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#23374a;border-radius:10px;padding:12px;font-size:12px}
+.game-ai-summary b{color:#6ee3aa}
+.game-ai-tasks{display:grid;gap:8px;margin:10px 0;max-height:230px;overflow:auto}
+.game-ai-task{padding:10px;border-radius:10px;background:#202f40;display:grid;gap:7px;min-width:0}
+.game-ai-tasks .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}
+.game-ai-tasks .step{font-size:9px;text-align:center;color:#8096ab;overflow-wrap:anywhere;padding:5px 1px;border-radius:6px;background:#293a4b}
+.game-ai-tasks .step.done{color:#90efb7;background:#1b4a3b}.game-ai-tasks .step.active{color:#ffd6a0;background:#6e4524;animation:aiWait 1.5s ease-in-out infinite}.game-ai-tasks .step.error{color:#b5d8ff;background:#164f88}
+@keyframes aiWait{50%{filter:brightness(1.5)}}
+.game-ai-task .ai-fish{display:inline-block;animation:fishspin 1.2s linear infinite;font-size:18px;transform-origin:center}
+@keyframes fishspin{to{transform:rotate(360deg)}}
+.game-ai-preview-frame{width:min(100%,min(62dvh,540px));aspect-ratio:1;margin:10px auto;display:grid;place-items:center;background:#101b29;border-radius:12px;overflow:hidden}
+.game-ai-preview-frame img{width:100%;height:100%;object-fit:contain}
+.game-ai-preview-frame iframe{width:100%;height:100%;border:0}
+@media(max-width:700px){.game-ai-order,.game-ai-preview{left:8px!important;right:8px!important;bottom:8px!important;top:auto!important;transform:none!important;width:calc(100vw - 16px)!important;max-height:88dvh!important}.game-ai-preview-frame{width:min(100%,55dvh)}.game-ai-actions>*{flex:1 1 auto}}
+@media(prefers-reduced-motion:reduce){.game-ai-tasks .step.active,.game-ai-task .ai-fish{animation:none}}
+
+/* ===== ROMEROS v13: модальные окна, адаптивный 3D-плеер, без сырых ошибок ===== */
+#runtimeError{display:none!important}
+.rom13-window{width:min(640px,calc(100vw - 18px))!important;max-height:88dvh!important;z-index:170!important;background:#172536!important;border:0!important;box-shadow:none!important}
+.rom13-field{display:flex!important;flex-direction:column!important;gap:6px;margin:12px 0;color:#b8c8db;font-size:12px}
+.rom13-field :is(input:not([type=file]):not([type=range]),textarea,select){width:100%;background:#24374a;border:0;border-radius:9px;color:#edf4fe;padding:11px;font:inherit;outline:0}
+.rom13-field textarea{min-height:106px;resize:vertical}
+.rom13-field input[type=range]{width:100%}.rom13-field input[type=file]{color:#c5d6ea;max-width:100%}
+.rom13-check{display:flex!important;align-items:center;gap:8px;margin:12px 0;font-size:12px;color:#c4d3e4}
+.rom13-cost{padding:11px;border-radius:9px;background:#253b4c;color:#7ee6aa;font-size:12px;margin:10px 0}
+.rom13-viewer{position:fixed;inset:0;z-index:220;display:flex;flex-direction:column;background:#0c1420}
+.rom13-viewer[hidden],.rom13-toast[hidden]{display:none!important}
+.rom13-viewerbar{height:48px!important;flex:none!important;display:flex;align-items:center;gap:12px;padding:8px 12px;background:#1b2a3c;overflow:visible}
+.rom13-viewerbar b{font-size:12px;white-space:nowrap}.rom13-viewerbar span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:#9eb6cd;font-size:11px}
+.rom13-viewer-canvas{flex:1;min-height:0;position:relative;overflow:hidden;background:radial-gradient(circle at 45% 40%,#25384f,#0b1420)}
+.rom13-viewer-canvas canvas{position:absolute;inset:0;display:block;touch-action:none}
+.rom13-viewer-controls{display:flex;gap:6px;padding:9px;background:#172637;flex-wrap:wrap;justify-content:center}
+.rom13-viewer-controls button{border:0;background:#2a4057;border-radius:9px;padding:9px 12px;font-size:12px}
+.rom13-viewerhint{text-align:center;font-size:10px;color:#96afc8;padding:7px;background:#172637}
+.rom13-toast{position:fixed;z-index:230;right:12px;bottom:calc(155px + env(safe-area-inset-bottom));max-width:320px;background:#263e51;color:#e2f0ff;padding:10px 13px;border-radius:11px;font-size:12px;pointer-events:none}
+@media(max-width:700px){.rom13-window{left:8px!important;right:8px!important;bottom:8px!important;top:auto!important;transform:none!important;width:calc(100vw - 16px)!important;max-height:90dvh!important}.rom13-viewer-controls button{flex:1 1 29%;font-size:11px}.rom13-viewerhint{font-size:9px}.rom13-viewerbar{height:48px!important}}
+
+/* ============================================================
+   ROMEROS UI v14 — Telegram Lite: палитра и настройки интерфейса.
+   Изменяйте только переменные ниже для полного обновления темы.
+   --r14-bg: фон; --r14-panel: панели; --r14-card: плитки меню;
+   --r14-accent: активные кнопки; --r14-ok: успех; --r14-warn: ожидание.
+   Без внешних теней и толстых контуров, компактный мобильный интерфейс.
+   ============================================================ */
+:root{--r14-bg:#101b28;--r14-panel:#172638;--r14-card:#22364a;--r14-accent:#369de9;--r14-text:#eaf3ff;--r14-muted:#94abc1;--r14-ok:#56ce94;--r14-warn:#ff9c47;--r14-radius:14px}
+#dockScroller{scrollbar-width:none!important;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:4px 2px!important}
+#dockScroller::-webkit-scrollbar{display:none}
+#dockScroller .rom14-button{flex:0 0 auto!important;display:inline-flex!important;align-items:center;gap:6px;white-space:nowrap;border:0!important;box-shadow:none!important;background:var(--r14-card)!important;border-radius:19px!important;padding:8px 12px!important;font-size:11px!important;min-height:35px;scroll-snap-align:start}
+#dockScroller .rom14-button .r14-icon{font-size:15px;line-height:1}
+#rom14Panel{background:var(--r14-panel)!important;color:var(--r14-text);border:0!important;box-shadow:none!important;border-radius:var(--r14-radius)!important;width:min(730px,calc(100vw - 18px))!important;max-height:84dvh!important;overflow-y:auto;z-index:195!important;padding:15px!important}
+.rom14-head{display:flex;justify-content:space-between;gap:8px;align-items:start;padding-bottom:10px;position:sticky;top:-15px;background:var(--r14-panel);z-index:1}
+.rom14-head small{color:var(--r14-muted);font-size:10px}.rom14-head h2{font-size:17px;margin:2px 0}.rom14-head button{border:0;background:var(--r14-card);border-radius:9px;padding:7px 12px}
+.rom14-body{display:grid;gap:10px;font-size:13px}.rom14-body p{color:var(--r14-muted);line-height:1.55;margin:4px 0}
+.rom14-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:8px}
+.rom14-tile{background:var(--r14-card);border-radius:12px;padding:12px;display:grid;gap:6px;min-width:0}
+.rom14-tile .meta{font-size:11px;color:var(--r14-muted)}
+.rom14-panel button,.rom14-body button{border:0;background:#2a465e;padding:9px 11px;border-radius:10px;color:var(--r14-text);text-align:left;box-shadow:none;cursor:pointer}
+.rom14-body button.r14-primary{background:var(--r14-accent);color:#071e32;font-weight:700}
+.rom14-body button:disabled{opacity:.5;cursor:default}
+.rom14-body :is(input,textarea,select){max-width:100%;width:100%;min-width:0;background:#273b50;color:var(--r14-text);border:0;outline:0;border-radius:9px;padding:10px;font:inherit}
+.rom14-body textarea{min-height:78px;resize:vertical}
+.rom14-body label{display:grid;gap:5px;font-size:12px;margin:3px 0;color:var(--r14-muted)}
+.rom14-body label:has(input[type=checkbox]){display:flex;align-items:center}.rom14-body input[type=checkbox]{width:auto}
+.rom14-actions{display:flex;gap:7px;flex-wrap:wrap}.rom14-actions button{flex:1 1 auto}
+.rom14-muted{font-size:11px;color:var(--r14-muted)}
+.rom14-popup{position:fixed;right:12px;bottom:calc(150px + env(safe-area-inset-bottom));z-index:196;width:min(270px,calc(100vw - 24px));max-height:min(60dvh,470px);overflow:auto;display:grid;gap:4px;padding:9px;border-radius:15px;background:var(--r14-panel)}
+.rom14-popup[hidden],.rom14-notice[hidden]{display:none!important}
+.rom14-popup button{border:0;background:var(--r14-card);border-radius:10px;padding:11px;color:var(--r14-text);text-align:left}
+.rom14-notice{position:fixed;right:12px;bottom:calc(148px + env(safe-area-inset-bottom));z-index:250;background:#294253;color:#fff;border-radius:12px;padding:11px 15px;font-size:12px;max-width:min(340px,90vw)}
+.rom14-cubemap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.rom14-cubemap button{position:relative;min-height:92px;background:linear-gradient(150deg,#304d64b3,#1d3448b3)!important;border:1px solid #5b8ca36b!important;display:grid;place-items:center;text-align:center}
+.rom14-cubemap .cube{display:block;font-size:30px;color:#8be4f3;text-shadow:0 0 7px #62d4ff5c}
+.rom14-cubemap small{display:block;font-size:10px;color:#a9bfd1}
+.rom14-chip{display:inline-block;background:#294760;border-radius:8px;padding:5px 9px;color:#9cddff;font-size:11px}
+@media(max-width:700px){#rom14Panel{left:8px!important;right:8px!important;bottom:calc(8px + env(safe-area-inset-bottom))!important;top:auto!important;transform:none!important;max-height:88dvh!important;width:calc(100vw - 16px)!important;padding:12px!important}.rom14-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rom14-cubemap button{min-height:68px}.rom14-popup{bottom:calc(138px + env(safe-area-inset-bottom))}}
+@media(max-width:400px){.rom14-grid{grid-template-columns:1fr 1fr}.rom14-tile{padding:9px}.rom14-body button{padding:8px}}
+
+
+
+/* ===== ROMEROS v15 / UI THEME — изменяйте эти цвета для всей мастерской ===== */
+:root{--r15-bg:#0e1824;--r15-panel:#192838;--r15-field:#25384a;--r15-accent:#369de9;--r15-success:#5cce99;--r15-error:#65a9ff;--r15-ink:#e7f0fb;--r15-radius:13px}
+.rom15-inline-result{margin-top:12px;background:var(--r15-panel);padding:9px;border-radius:var(--r15-radius);color:var(--r15-ink)}
+.rom15-inline-result[hidden]{display:none!important}
+.rom15-result-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 2px;font-size:12px}
+.rom15-result-head span{color:#9cb4c9;font-size:11px}
+.rom15-model-canvas{position:relative;width:100%;height:clamp(230px,43dvh,490px);background:radial-gradient(circle at 50% 40%,#32465c,#101c2a);border-radius:10px;overflow:hidden}
+.rom15-model-canvas canvas{width:100%;height:100%;display:block;touch-action:none}
+.rom15-tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.rom15-tools button{border:0!important;background:var(--r15-field)!important;padding:9px 11px!important;border-radius:10px!important;color:var(--r15-ink)!important}
+.rom15-tools button:focus-visible{outline:2px solid var(--r15-accent)}
+.rom15-archive{position:fixed;z-index:190;inset:0;display:grid;place-items:center;background:#050a10b9;padding:12px}
+.rom15-archive[hidden]{display:none!important}
+.rom15-archive-window{width:min(780px,100%);max-height:88dvh;overflow:auto;border-radius:16px;background:var(--r15-panel);padding:16px;color:var(--r15-ink)}
+.rom15-archive-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-radius:9px;background:var(--r15-field);padding:10px;margin:7px 0}
+.rom15-archive-row>strong{flex:1 1 190px;font-size:12px;min-width:0;overflow-wrap:anywhere}
+.rom15-archive-row button,.rom15-archive-window>button{border:0;background:#30506b;border-radius:9px;padding:8px}
+.rom15-help{color:#9bb1c9;font-size:12px;line-height:1.5}
+@media(max-width:700px){.rom15-inline-result{padding:6px}.rom15-model-canvas{height:min(42dvh,330px)}.rom15-tools button{flex:1 1 110px}}
+
+
+/* === v16 TILE STUDIO theme. All common colors are variables. === */
+:root{--r16-bg:#101c29;--r16-panel:#192938;--r16-control:#2a4055;--r16-text:#eaf2fb;--r16-sub:#9fb4c6;--r16-active:#379fe7;--r16-good:#5dc894;--r16-radius:14px}
+.rom16-overlay{position:fixed;inset:0;z-index:215;background:#060d17bc;display:grid;place-items:center;padding:12px;color:var(--r16-text)}
+.rom16-overlay[hidden]{display:none!important}.rom16-panel{width:min(1070px,100%);max-height:94dvh;overflow-y:auto;border-radius:var(--r16-radius);background:var(--r16-panel);padding:13px;box-shadow:none;overscroll-behavior:contain}
+.rom16-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:0 0 10px}.rom16-head h2{margin:0;font-size:16px}.rom16-head small,.rom16-hint{font-size:11px;color:var(--r16-sub)}
+.rom16-head button,.rom16-buttons button,.rom16-history-tabs button{border:0!important;border-radius:9px;background:var(--r16-control);padding:9px 12px;color:var(--r16-text);font-size:12px}
+.rom16-buttons{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.rom16-buttons button.active,.rom16-history-tabs button.active{background:#2d6892}.rom16-primary-actions button{background:#2e79ab;font-weight:600;flex:1}
+.rom16-main{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,320px);gap:12px;align-items:start}.rom16-editor{min-width:0;text-align:center}.rom16-editor canvas{width:min(100%,min(73dvh,690px));height:auto;aspect-ratio:1;display:block;margin:0 auto 8px;touch-action:none;border-radius:9px;background:white}.rom16-controls{max-height:min(78dvh,760px);overflow-y:auto;padding:0 4px}
+.rom16-controls label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--r16-sub);margin:10px 0}.rom16-controls :is(select,textarea,input[type=range]){width:100%;border:0;min-height:32px;border-radius:8px;background:var(--r16-control);color:var(--r16-text);padding:7px}.rom16-controls input[type=color]{width:55px;height:34px;border:0;background:none}.rom16-controls label.rom16-check{flex-direction:row;align-items:center;gap:8px}.rom16-controls label.rom16-check input{width:auto;accent-color:var(--r16-active)}.rom16-controls textarea{min-height:88px;resize:vertical}
+.rom16-history-panel{width:min(780px,100%)}.rom16-history-tabs{display:flex;gap:6px;margin:10px 0}.rom16-history-entry{display:flex;gap:9px;align-items:center;flex-wrap:wrap;border-radius:10px;background:var(--r16-control);margin:8px 0;padding:10px}.rom16-history-entry strong{flex:1 1 180px;font-size:12px}.rom16-history-entry button{border:0;border-radius:7px;padding:8px;background:#365c76}
+.rom16-output{width:min(690px,100%)}.rom16-image-container{width:min(100%,65dvh,540px);aspect-ratio:1;background:#0a1421;margin:8px auto;border-radius:9px;overflow:hidden}.rom16-image-container img{width:100%;height:100%;object-fit:contain}.rom16-output .rom16-buttons{justify-content:center}
+@media(max-width:750px){.rom16-overlay{padding:5px}.rom16-panel{padding:9px;max-height:96dvh}.rom16-main{grid-template-columns:1fr}.rom16-controls{max-height:none}.rom16-editor canvas{width:min(100%,48dvh)}.rom16-buttons button{flex:1 1 auto}.rom16-head h2{font-size:14px}}
+
+/* ROMEROS UPLOAD20 v17: mobile layouts and high-resolution import helper */
+:root{--r17-upload-max:20;--r17-accent:#379fe7}
+.rom16-controls select,.rom13-field select,.game-ai-field select{max-width:100%;min-width:0}
+.rom16-controls input[type=file],.rom13-field input[type=file]{max-width:100%;overflow-wrap:anywhere;font-size:12px}
+@media(max-width:750px){.rom16-main{grid-template-columns:minmax(0,1fr)!important}.rom16-panel{width:100%;max-width:100vw;overflow-x:hidden}.rom16-controls{min-width:0}.rom16-editor canvas{max-width:100%}}
+@media(max-width:380px){.rom16-buttons button{flex:1 1 calc(50% - 5px)}.game-ai-tasks .steps{gap:2px}.game-ai-tasks .step{font-size:8px}}
+@media(max-width:380px){#bottomDock>button{flex:0 1 auto;min-width:0;max-width:23vw;overflow:hidden;text-overflow:ellipsis}}
 </style>
 <script>
-window.addEventListener('error',e=>{
- const box=document.getElementById('runtimeError');
- if(box){box.style.display='block';box.textContent='Ошибка запуска: '+(e.message||'проверьте консоль браузера');}
-});
-window.addEventListener('unhandledrejection',e=>{
- const box=document.getElementById('runtimeError');
- if(box){box.style.display='block';box.textContent='Ошибка: '+String(e.reason?.message||e.reason);}
-});
+// Ошибки диагностики выводим разработчику в консоль, но не игроку.
+window.addEventListener('error', e => { console.warn('[ROMEROS internal]', e.message); });
+window.addEventListener('unhandledrejection', e => { console.warn('[ROMEROS internal]', e.reason); });
 </script>
 <!-- Sculpt Studio 3.0 integrated. The 30 original textures are embedded; additional menu imagery may use plitka_assets/. -->
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"}}</script>
@@ -364,7 +488,7 @@ window.addEventListener('unhandledrejection',e=>{
 <!-- ============================================================
      ЭКРАН ВХОДА (показывается до входа)
      ============================================================ -->
-<div id="runtimeError" style="display:none;position:fixed;z-index:200;top:5px;left:5px;right:5px;padding:12px;background:#692b35;color:white;border-radius:8px"></div><div id="entryScreen">
+<div id="entryScreen">
   <div class="entryCard">
     <h1>◈ 3D PLITKA — ВХОД</h1>
     <p class="sub">Введите имя (сохраняется в браузере). Ниже — ваша история и быстрый старт.</p>
@@ -460,7 +584,7 @@ window.addEventListener('unhandledrejection',e=>{
       <p class="autosaveTag">Черновик сохраняется автоматически. Архивные копии — отдельно.</p>
       <input id="projectName" type="text" placeholder="Название модели" value="Моя скульптура">
       <div class="actions">
-        <button id="archiveSave">Поместить в архив</button>
+        <button id="archiveSave">Поместить в архив</button><button id="rom15ArchiveOpen" type="button">Архив GLB (с файлами)</button>
         <button id="newProject">Новая модель</button>
       </div>
       <div id="archiveList" class="list"></div>
@@ -474,7 +598,7 @@ window.addEventListener('unhandledrejection',e=>{
         <button id="menuBoards">Выбор истории борда</button>
         <button id="menuTiles">Плитки</button>
         <button id="menuMarket">Рынок</button>
-        <button id="menuAi" class="ai-shine">✧ AI-советник</button><button id="menuDraw">Нарисовать плитку</button><button id="menuUpload">Загрузить PNG/JPG</button>
+        <button id="menuAi" class="ai-shine">✧ AI-советник</button><button id="menuDraw">Нарисовать плитку</button><button id="rom16MenuStudio" type="button">Симметричная плитка</button><button id="menuUpload">Загрузить PNG/JPG</button>
         <button id="menuProfile">Профиль и история</button>
         <button id="menuExit">Выйти (сменить имя)</button>
       </div>
@@ -494,7 +618,7 @@ window.addEventListener('unhandledrejection',e=>{
       <p class="note">Бесплатны первые 3 PNG. Остальные 27 открываются за игровые монеты и добавляются в рабочую библиотеку после покупки.</p>
       <div class="row"><span>Монеты: <b id="coinsView">0</b></span><button id="marketClaim">Получить +5 монет (раз в час)</button></div>
       <div class="shape-options" id="marketShapeOptions"><span>Форма товара:</span><button data-market-shape="all" class="active">Все</button><button data-market-shape="triangle">△</button><button data-market-shape="square">□</button><button data-market-shape="hexagon">⬡</button></div><div class="menu-tabs"><button class="active" data-market-tab="tiles">Плитки</button><button data-market-tab="tickets">Билеты</button><button data-market-tab="tokens">Токены</button></div>
-<div class="marketSection active" id="marketTiles"><div id="marketList" class="marketGrid"></div></div>
+<div class="marketSection active" id="marketTiles"><div class="game-ai-actions"><button type="button" id="gameAiFromMarket" class="ai-shine">✧ Купить генерацию новой плитки</button></div><div id="marketList" class="marketGrid"></div></div>
 <div class="marketSection" id="marketTickets"></div><div class="marketSection" id="marketTokens"></div>
 <p class="note">Все покупки за игровые монеты. Оплата реальными деньгами не подключена.</p>
     </div>
@@ -526,11 +650,31 @@ window.addEventListener('unhandledrejection',e=>{
     
 <!-- ПАНЕЛИ ПОЛЬЗОВАТЕЛЯ: рисунок, фото, меню -->
 <div id="drawingPanel" class="modal"><div class="actions"><h2 style="flex:1">Борд / собственная плитка</h2><button id="closeDrawing">Закрыть</button></div>
-<p class="menu-text">Квадратный холст 1024 × 1024. Рисунок попадает в вашу библиотеку текстур.</p>
+<p class="menu-text">Редактор рисует в 1024 × 1024. Для AI можно отправить квадрат до 8192 × 8192, до 20 МиБ; на телефоне рекомендовано не более 4096 × 4096.</p>
 <div class="editorControls"><button data-draw-tool="brush" class="active">✎ Кисть</button><button data-draw-tool="eraser">⌫ Ластик</button><button data-draw-tool="fill">▣ Заливка</button><label>Цвет <input id="drawColor" type="color" value="#7b9d55"></label><label>Толщина <input id="drawSize" type="range" min="1" max="100" value="20"></label><button id="drawClear">Очистить</button></div>
 <canvas id="drawCanvas" class="editorCanvas" width="1024" height="1024"></canvas>
-<div class="editorControls"><button id="drawUndo">↶ Отмена</button><button id="drawSave">Сохранить плитку</button><button id="drawDownload">Скачать PNG</button></div>
+<div class="editorControls"><label>Размер отправляемого рисунка <select id="rom13DrawExport"><option value="1024">1024 × 1024</option><option value="2048" selected>2048 × 2048</option><option value="4096">4096 × 4096</option><option value="8192">8192 × 8192 · ПК</option></select></label><button id="drawUndo">↶ Отмена</button><button id="drawSave">Сохранить плитку</button><button id="drawDownload">Скачать PNG</button><button id="gameAiFromDrawing" type="button" class="ai-shine">✧ Генерировать из рисунка</button><button id="rom16OpenStudio" type="button">Узор / симметрия</button></div>
 <p class="uploadHint">PNG сохраняет прозрачность; рисунки сохраняются в локальную базу изображений браузера.</p></div>
+<!-- AI BRIDGE: отдельная мастерская заказов. Доступна из рынка и окна рисования. -->
+<div id="gameAiOrderPanel" class="modal game-ai-order" role="dialog" aria-label="Заказ плитки ИИ">
+  <div class="actions"><h2 style="flex:1">Генерация плитки · AI</h2><button id="gameAiClose" type="button">Закрыть</button></div>
+  <p class="note">Изображение будет отправлено в ROMEROS GUI. Для генерации списываются игровые монеты сервером. Созданные PNG автоматически можно добавить в коллекцию плиток.</p>
+  <label class="game-ai-field">Источник заявки<select id="gameAiSource"><option value="market">Магазин · новая плитка</option><option value="drawing">Редактор · улучшить мой рисунок</option></select></label>
+  <label class="game-ai-field">Модель<select id="gameAiEngine"><option value="gpt">GPT Image / API</option><option value="sd15">Stable Diffusion 1.5 / NVIDIA</option><option value="meshy">Meshy 3D / GLB</option></select></label>
+  <label class="game-ai-field">Размер / качество<select id="gameAiQuality"><option value="standard">512 × 512 · стандарт</option><option value="high">1000 × 1000 · высокое</option></select></label>
+  <label class="game-ai-field">Описание узора<textarea id="gameAiPrompt" maxlength="1000" rows="4" placeholder="Например: симметричный орнамент из янтаря, ледяные ветви, бирюза, тонкие линии..."></textarea></label>
+  <div class="game-ai-actions"><button type="button" id="gameAiAttachDrawing">Прикрепить рисунок</button><label class="game-ai-upload">Фото PNG/JPG<input id="gameAiPhoto" type="file" accept="image/png,image/jpeg,image/webp" hidden></label></div>
+  <p id="gameAiAttachment" class="note">Без вложения · текстовая генерация</p>
+  <div class="game-ai-summary"><span id="gameAiCost">Уточняем стоимость на сервере…</span><b id="gameAiBalance">Баланс…</b></div>
+  <div class="game-ai-actions"><button type="button" id="gameAiSubmit" class="game-ai-primary">Купить генерацию →</button><button type="button" id="gameAiRefresh">Обновить кошелёк</button></div>
+  <div id="gameAiTasks" class="game-ai-tasks" aria-live="polite"></div>
+</div>
+<div id="gameAiPreviewPanel" class="modal game-ai-preview" role="dialog" aria-label="Готовая плитка">
+  <div class="actions"><h2 style="flex:1">Результат генерации</h2><button id="gameAiPreviewClose">Закрыть</button></div>
+  <div id="gameAiPreviewImage" class="game-ai-preview-frame"></div>
+  <div id="gameAiPreviewInfo" class="note"></div>
+  <div class="game-ai-actions"><button id="gameAiDownload" type="button">Скачать</button><button id="gameAiAdd" type="button" class="game-ai-primary">Добавить в мои плитки</button><button id="gameAiWarehouse" type="button">На склад</button></div>
+</div>
 <div id="morePanel" class="modal"><div class="actions"><h2 style="flex:1">Информация</h2><button id="closeMore">Закрыть</button></div>
 <img class="menu-hero" src="./plitka_assets/menu.png" alt="Главное меню студии">
 <div class="menu-tabs iconMenuTabs">
@@ -619,6 +763,7 @@ window.addEventListener('unhandledrejection',e=>{
   </div>
 <div id="tileActionMenu"><button id="tileActionCreate">Создать</button><button id="tileActionBuy">Купить</button><button id="tileActionAdd">Добавить</button></div>
 
+<script src="/game/romeros_image.js" defer></script>
 <script type="module">
 /* ============================================================
    БЛОК 1. ИМПОРТЫ, КОНСТАНТЫ, УТИЛИТЫ
@@ -626,6 +771,7 @@ window.addEventListener('unhandledrejection',e=>{
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {SimplifyModifier} from 'three/addons/modifiers/SimplifyModifier.js';
 
 const $ = (id) => document.getElementById(id);
@@ -762,20 +908,21 @@ function paidStock(){return readJSON(PAID_STOCK_KEY,{})}
 function paidCount(index){return Math.max(0,Number(paidStock()[index]||0))}
 function grantPaid(index,amount=10){const st=paidStock();st[index]=paidCount(index)+amount;writeJSON(PAID_STOCK_KEY,st)}
 function spendPaid(index){const st=paidStock();st[index]=Math.max(0,paidCount(index)-1);writeJSON(PAID_STOCK_KEY,st)}
-function marketBuy(idx, price){
-  const p = loadProfile();
-  price=tilePrice(idx);
-  if(p.coins < price){ setStatus('Недостаточно монет'); return false; }
-  p.coins -= price;
-  if(!p.ownedTiles.includes(idx)) p.ownedTiles.push(idx);
-  saveProfile(p);
-  grantPaid(idx,10); // Каждая покупка выдаёт только 10 размещений.
-  const m = marketState(); if(!m.purchased.includes(idx)) m.purchased.push(idx); writeJSON(LS_MARKET, m);
-  addCoinsView();
-  renderTileLibrary();
-  renderMarket();
-  historyPush('marketBuy',{index:idx,price});
-  return true;
+async function marketBuy(idx, price){
+  // ВАЖНО: цену и баланс проверяет GUI, а не браузер.
+  try {
+    const response=await fetch('/api/game/purchase',{method:'POST',credentials:'same-origin',
+      headers:{'Content-Type':'application/json'},body:JSON.stringify({tile_index:idx,quantity:10})});
+    const result=await response.json();
+    if(!response.ok)throw Error(result.error||'Покупка отклонена сервером');
+    const p=loadProfile();p.coins=Number(result.balance.coins);
+    if(!p.ownedTiles.includes(idx))p.ownedTiles.push(idx);
+    saveProfile(p);grantPaid(idx,10);
+    const m=marketState();if(!m.purchased.includes(idx))m.purchased.push(idx);writeJSON(LS_MARKET,m);
+    addCoinsView();renderTileLibrary();renderMarket();
+    historyPush('marketBuy',{index:idx,price:result.price,server_order_id:result.order_id});
+    return true;
+  } catch(error){setStatus('Покупка: '+error.message);return false;}
 }
 function addCoinsView(){
   const p = loadProfile();
@@ -1099,6 +1246,10 @@ async function registerCustomTile(blob,name,sourceCanvas=null){
 const mat = new THREE.MeshStandardMaterial({color:0x9aaabd,roughness:.82,side:THREE.DoubleSide});
 let model = null;
 const models = [];
+// v15: размер игровой зоны в единицах Three.js: 10 000 × 10 000 (X/Z).
+const SCENE_EDGE = 10000;
+const SCENE_HALF = SCENE_EDGE / 2;
+window.ROMEROS_SCENE_LIMITS = Object.freeze({width:SCENE_EDGE,depth:SCENE_EDGE,min:-SCENE_HALF,max:SCENE_HALF,maxObjects:24});
 let nextObjectId=1;
 const tileGroup = new THREE.Group(); scene.add(tileGroup);
 const sideMat = new THREE.MeshStandardMaterial({color:0x65616a,roughness:.9});
@@ -1148,7 +1299,7 @@ function addSceneObject(type='sphere'){
  models.push(m);scene.add(m);selectSceneObject(m.userData.objectId);
  historyPush('addObject',{type,id:m.userData.objectId});scheduleAutosave();
 }
-function cloneSceneObject(){if(!model||models.length>=24)return;snapshot('Дублирование объекта');const n=newMesh(model.userData.type,model.geometry.clone());n.position.copy(model.position).add(new THREE.Vector3(.65,0,.65));models.push(n);scene.add(n);selectSceneObject(n.userData.objectId)}
+function cloneSceneObject(){if(!model||models.length>=24)return;snapshot('Дублирование объекта');const n=newMesh(model.userData.type,model.geometry.clone());n.position.copy(model.position).add(new THREE.Vector3(.65,0,.65));n.position.x=THREE.MathUtils.clamp(n.position.x,-SCENE_HALF,SCENE_HALF);n.position.z=THREE.MathUtils.clamp(n.position.z,-SCENE_HALF,SCENE_HALF);models.push(n);scene.add(n);selectSceneObject(n.userData.objectId)}
 function removeSceneObject(){if(models.length<=1){setStatus('Нельзя удалить последний объект');return}
  snapshot('Удаление объекта');const id=model.userData.objectId;
  const j=models.indexOf(model);scene.remove(model);model.geometry.dispose();models.splice(j,1);
@@ -2060,9 +2211,9 @@ function renderMarket(){
     const owned=isTileOwned(i,profile);
     price.textContent=i<FREE_TILE_COUNT?'Бесплатно · остаток '+freeTileCounts()[i]+'/10':tilePrice(i)+' монет / 10 шт. · запас '+paidCount(i);
     const btn=document.createElement('button');btn.textContent=i<FREE_TILE_COUNT?'Выбрать':paidCount(i)>0?'Выбрать':'Купить 10 шт.';
-    btn.onclick=()=>{
+    btn.onclick=async()=>{
       if(i>=FREE_TILE_COUNT && paidCount(i)<=0){
-        if(!marketBuy(i,tilePrice(i)))return;
+        if(!await marketBuy(i,tilePrice(i)))return;
       }
       selectTexture(i);
       $('marketPanel').classList.remove('open');
@@ -2309,19 +2460,22 @@ $('rotateSelectedTile').onclick=()=>{const inp=$('textureRotation');inp.value=(N
    БЛОК 19. ЗАГРУЗКА ФОТО: PNG/JPG 1:1 ДО 1024×1024 И 10 MiB
    Файл -> ImageBitmap -> непрозрачный Canvas -> CanvasTexture -> грань +Y.
    ============================================================ */
-const MAX_TILE_BYTES=10*1024*1024;
+const MAX_TILE_BYTES=25*1024*1024; // Размер исходного PNG/JPEG при импорте плитки. AI передаёт до 20 МиБ.
 $('uploadTileInput').onchange=async event=>{
   const file=event.target.files?.[0];event.target.value='';if(!file)return;
   try{
-    if(!['image/png','image/jpeg'].includes(file.type))throw Error('Только PNG/JPG');
-    if(file.size>MAX_TILE_BYTES)throw Error('Размер файла превышает 10 МиБ');
-    const image=await createImageBitmap(file);
-    const width=image.width,height=image.height;
-    image.close();
-    if(width!==height||width<1||width>1024)throw Error(`Нужен квадрат до 1024×1024, загружено ${width}×${height}`);
-    await registerCustomTile(file,file.name.replace(/\.[^.]+$/,''));
-    setStatus(`Фото ${width}×${height} сохранено. Изображение на верхней грани выбранной плитки.`);
-  }catch(err){console.error('Ошибка загрузки фото:',err);alert(err.message);setStatus(err.message)}
+    if(!['image/png','image/jpeg','image/webp'].includes(file.type))throw Error('Только PNG/JPEG/WebP');
+    if(file.size>MAX_TILE_BYTES)throw Error('Размер исходника превышает 25 МиБ');
+    // Игровая текстура WebGL — отдельная копия. На мобильных 2048, на ПК до 4096.
+    // Принимаем неквадратное фото и обрезаем по центру до квадрата.
+    const maxTextureSide = window.matchMedia('(max-width: 700px)').matches ? 2048 : 4096;
+    const squareBlob = await window.ROMEROS_Image.squarePhoto(file,maxTextureSide);
+    const bitmap=await createImageBitmap(squareBlob);
+    const width=bitmap.width,height=bitmap.height;
+    bitmap.close();
+    await registerCustomTile(squareBlob,file.name.replace(/\.[^.]+$/,''));
+    setStatus(`Квадрат ${width}×${height} сохранён на плитку. AI-оригинал может быть до 8192×8192.`);
+  }catch(err){console.error('Ошибка загрузки фото:',err);setStatus('Изображение не удалось подготовить. Проверьте формат и размер.')}
 };
 
 /* РЕДАКТОР БОРДА: кисти, ластик, заливка, отмена, экспорт PNG. */
@@ -2344,7 +2498,7 @@ $('drawSave').onclick=async()=>{const name='Моя плитка '+(customTiles.l
  m.closePath();m.clip();m.drawImage(dc,0,0);m.restore();
  const blob=await canvasToBlob(masked);await registerCustomTile(blob,name,masked);
  // Пользовательский новый рисунок: 10 размещений, не бесконечно.
- renderTileLibrary();$('drawingPanel').classList.remove('open');setStatus('Плитка сохранена: '+name)}catch(err){alert(err.message);setStatus(err.message)}};
+ renderTileLibrary();$('drawingPanel').classList.remove('open');setStatus('Плитка сохранена: '+name)}catch(err){setStatus('Изображение не удалось подготовить. Проверьте формат и размер.')}};
 
 
 /* ============================================================
@@ -2497,6 +2651,140 @@ document.querySelectorAll('[data-market-shape]').forEach(b=>b.onclick=()=>{
  if(grid)grid.querySelectorAll('.marketCard').forEach(card=>{card.dataset.shape=marketShapeFilter==='all'?'square':marketShapeFilter});
  chooseShape(marketShapeFilter==='all'?selectedTileShape:marketShapeFilter);
 });
+
+
+/* ============================================================
+  ROMEROS AI GAME CLIENT — БЛОК ИНТЕГРАЦИИ С GUI
+  HTTP API: /api/prices, /api/wallet, /api/generate,
+            /api/status/{id}?ticket=..., /api/result/{id}?...,
+            /api/game/purchase, /api/game/warehouse.
+  Все цены и списания подтверждает Python. Ключи API не попадают в сайт.
+  Источник: market / drawing; размер standard 512 / high 1000.
+  Изображение из редактора отправляется как multipart photo PNG.
+  ============================================================ */
+const aiState={prices:{},wallet:null,source:'market',drawingBlob:null,tasks:[],current:null,pricesReady:false};
+// Прайс не кешируем локально: backend — единственный источник истины.
+const aiStages=['received','prepared','sent','waiting','delivered'];
+const aiStageLabels=['Загрузка','Обработка','Отправка','Ожидание','Выдача'];
+function aiFmt(n){return Number(n||0).toLocaleString('ru-RU')}
+async function aiJson(url,options){const r=await fetch(url,{credentials:'same-origin',cache:'no-store',...options});const obj=await r.json();if(!r.ok)throw Error(obj.error||obj.message||`HTTP ${r.status}`);return obj}
+async function aiReloadWallet(){const wallet=await aiJson('/api/wallet');aiState.wallet=wallet;
+  const p=loadProfile();p.coins=Number(wallet.coins||0);saveProfile(p);addCoinsView();
+  $('gameAiBalance').textContent='Монеты: '+aiFmt(wallet.coins);aiUpdatePrice();return wallet;}
+async function aiReloadPrices(){aiState.pricesReady=false;aiUpdatePrice();const obj=await aiJson('/api/prices');if(!obj.coin_prices)throw Error('Missing server coin prices');aiState.prices=obj.coin_prices;aiState.pricesReady=true;aiUpdatePrice();}
+function aiUpdatePrice(){const engine=$('gameAiEngine').value,quality=$('gameAiQuality').value;
+  const q=engine==='meshy'?'high':quality;const cost=aiState.prices[engine]?.[q];
+  $('gameAiCost').textContent=!aiState.pricesReady||!Number.isInteger(cost)||cost<=0?'Цена уточняется на сервере…':`Стоимость заказа: ${aiFmt(cost)} монет · без доплат`;
+  $('gameAiSubmit').disabled=!aiState.pricesReady||!Number.isInteger(cost)||cost<=0;
+  const meshy=engine==='meshy';$('gameAiQuality').disabled=meshy;
+}
+async function aiDrawingBlob(){const source=$('drawCanvas');const square=document.createElement('canvas');square.width=square.height=1024;square.getContext('2d').drawImage(source,0,0,1024,1024);return canvasToBlob(square,'image/png')}
+async function aiOpen(source){aiState.source=source;
+  $('gameAiSource').value=source;
+  if(source==='drawing'){
+    aiState.drawingBlob=await aiDrawingBlob();
+    $('gameAiAttachment').textContent='Прикреплён PNG рисунка 1024×1024';
+    $('gameAiPrompt').value=$('aiShapeDescription')?.value||'Улучши художественный рисунок плитки, сохрани исходную композицию и цвета';
+  }else{aiState.drawingBlob=null;$('gameAiAttachment').textContent='Без вложения';}
+  openModal('gameAiOrderPanel');
+  try{await Promise.all([aiReloadPrices(),aiReloadWallet()]);}catch(e){$('gameAiCost').textContent='Сервис временно недоступен';console.warn('[bridge]',e);}
+}
+function aiRoad(task){const el=document.createElement('div');el.className='game-ai-task';el.dataset.job=task.id;
+  const head=document.createElement('div');head.textContent=`${task.engine.toUpperCase()} · #${task.id.slice(0,8)}`;
+  const stages=document.createElement('div');stages.className='steps';
+  aiStages.forEach((key,i)=>{const st=document.createElement('div');st.className='step';st.dataset.stage=key;st.textContent=aiStageLabels[i];stages.append(st)});
+  const note=document.createElement('div');note.className='note';note.textContent='Заявка отправлена';
+  const fish=document.createElement('span');fish.className='ai-fish';fish.textContent='🐟';
+  el.append(head,stages,note,fish);$('gameAiTasks').prepend(el);return {el,note,fish};}
+function aiUpdateRoad(task,job){if(!task.ui)return;
+  const statuses=Array.isArray(job.stages)?Object.fromEntries(job.stages.map(x=>[x.id,x.state])):(job.stages||{});task.ui.el.querySelectorAll('[data-stage]').forEach(el=>{
+    el.classList.remove('done','active','error');
+    const key=el.dataset.stage;const v=statuses[key];const state=typeof v==='string'?v:v?.state;
+    if(['done','active','error'].includes(state))el.classList.add(state);
+  });
+  task.ui.note.textContent=job.message||job.status;
+  task.ui.fish.style.display=['done','error'].includes(job.status)?'none':'inline-block';
+}
+async function aiPoll(task){for(;;){try{
+    const job=await aiJson('/api/status/'+encodeURIComponent(task.id)+'?ticket='+encodeURIComponent(task.ticket));
+    aiUpdateRoad(task,job);
+    if(job.status==='done'){
+      task.resultUrl=job.result_url;task.status='done';task.engine=job.engine;task.price=Number(job.price??task.price);window.dispatchEvent(new CustomEvent('romeros:generated',{detail:{...task}}));
+      // ОДНО событие на генерацию: предотвращаем дублирующий архив GLB.
+      if(job.result_url){task.ui.note.textContent=`Готово · оплачено ${aiFmt(task.price)} монет`; const b=document.createElement('button');b.textContent='Посмотреть результат';b.onclick=()=>aiShow(task);task.ui.el.append(b);}
+      await aiReloadWallet();return;
+    }
+    if(job.status==='error'){
+      task.status='error';task.ui.note.textContent='Не удалось завершить генерацию';
+      await aiReloadWallet();return;
+    }
+  }catch(e){task.ui.note.textContent='Восстанавливаем соединение…';console.warn('[bridge]',e);}
+  await new Promise(resolve=>setTimeout(resolve,2300));
+}}
+async function aiSubmit(){const btn=$('gameAiSubmit');if(btn.disabled)return;
+ const prompt=$('gameAiPrompt').value.trim(),engine=$('gameAiEngine').value,quality=$('gameAiQuality').value;
+ if(!prompt||prompt.length>1000){setStatus('Введите описание плитки до 1000 символов');return;}
+ const effectiveQuality=engine==='meshy'?'high':quality;const price=aiState.prices[engine]?.[effectiveQuality];if(!aiState.pricesReady||!Number.isInteger(price)||price<=0){setStatus('Не удалось подтвердить цену сервера');return;}
+ if((aiState.wallet?.coins||0)<price){setStatus('Не хватает игровых монет');return;}
+ const f=$('gameAiPhoto').files[0];
+ let blob=aiState.drawingBlob;
+ try{if(f)blob=await window.ROMEROS_Image.squarePhoto(f,8192)}
+ catch(e){setStatus('Фото нельзя подготовить для сервера');console.warn('[square image]',e);return}
+ if(blob&&blob.size>window.ROMEROS_Image.MAX_POST){setStatus('Вложение превышает 20 МиБ');return;}
+ const data=new FormData();data.append('engine',engine);data.append('quality',effectiveQuality);
+ data.append('currency','coins');data.append('source',aiState.source);data.append('tile_shape',selectedTileShape);
+ data.append('prompt',prompt);if(blob)data.append('photo',blob,'tile_square.'+(blob.type==='image/png'?'png':blob.type==='image/jpeg'?'jpg':'webp'));
+ btn.disabled=true;btn.textContent='Отправка…';
+ try{const reply=await aiJson('/api/generate',{method:'POST',body:data});
+   const task={id:reply.id,ticket:reply.ticket,engine,quality:effectiveQuality,source:aiState.source,price:Number(reply.price),status:'running',resultUrl:''};
+   aiState.tasks.unshift(task);task.ui=aiRoad(task);task.ui.note.textContent=`Сервер подтвердил оплату: ${aiFmt(task.price)} монет. Обработка…`;aiPoll(task);await aiReloadWallet();
+   historyPush('aiOrder',{id:reply.id,engine,quality,source:aiState.source,price:reply.price});
+ }catch(e){setStatus('Не удалось отправить заявку');console.warn('[bridge]',e);}
+ finally{btn.disabled=false;btn.textContent='Купить генерацию →';}
+}
+function aiShow(task){aiState.current=task;openModal('gameAiPreviewPanel');
+ const target=$('gameAiPreviewImage');target.replaceChildren();
+ if(task.engine==='meshy'){
+   const frame=document.createElement('iframe');frame.src='/viewer/'+encodeURIComponent(task.id)+'?ticket='+encodeURIComponent(task.ticket);frame.title='3D модель';target.append(frame);
+   $('gameAiAdd').disabled=true;
+ }else{
+   const img=document.createElement('img');img.src=task.resultUrl;img.alt='Квадратная плитка';target.append(img);
+   $('gameAiAdd').disabled=false;
+ }
+ $('gameAiPreviewInfo').textContent=`${task.engine.toUpperCase()} · ${task.quality==='high'?'1000×1000':'512×512'} · #${task.id.slice(0,8)}`;
+}
+async function aiAddResult(){const task=aiState.current;if(!task||task.engine==='meshy'||!task.resultUrl)return;
+ const btn=$('gameAiAdd');btn.disabled=true;
+ try{const r=await fetch(task.resultUrl,{credentials:'same-origin'});if(!r.ok)throw Error('Файл недоступен');
+  const blob=await r.blob();const image=await createImageBitmap(blob);
+  if(image.width!==image.height)throw Error('Ответ не квадратный');image.close();
+  await registerCustomTile(blob,'AI плитка '+task.id.slice(0,8));
+  $('gameAiPreviewPanel').classList.remove('open');
+  setStatus('AI плитка добавлена в коллекцию. Выберите её на нижней панели.');
+ }catch(e){setStatus('Не удалось добавить плитку');console.warn('[bridge]',e)}finally{btn.disabled=false;}
+}
+async function aiWarehouse(){const task=aiState.current;if(!task)return;
+ try{const r=await aiJson('/api/game/warehouse',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:task.id,ticket:task.ticket})});
+ setStatus(r.message||'Сохранено на склад');}catch(e){setStatus('Склад временно недоступен');console.warn('[bridge]',e)}
+}
+$('gameAiFromMarket').onclick=()=>aiOpen('market');
+$('gameAiFromDrawing').onclick=()=>aiOpen('drawing');
+$('gameAiClose').onclick=()=>$('gameAiOrderPanel').classList.remove('open');
+$('gameAiPreviewClose').onclick=()=>$('gameAiPreviewPanel').classList.remove('open');
+$('gameAiEngine').onchange=aiUpdatePrice;$('gameAiQuality').onchange=aiUpdatePrice;
+$('gameAiSource').onchange=async()=>{aiState.source=$('gameAiSource').value;if(aiState.source==='drawing'){aiState.drawingBlob=await aiDrawingBlob();$('gameAiAttachment').textContent='Рисунок прикреплён'}else{aiState.drawingBlob=null;$('gameAiAttachment').textContent='Вложение не выбрано'}};
+$('gameAiAttachDrawing').onclick=async()=>{aiState.drawingBlob=await aiDrawingBlob();$('gameAiAttachment').textContent='Прикреплён рисунок из борда'};
+$('gameAiPhoto').onchange=()=>{const f=$('gameAiPhoto').files[0];$('gameAiAttachment').textContent=f?`${f.name}, ${(f.size/1048576).toFixed(2)} МБ`:'Без вложения'};
+$('gameAiSubmit').onclick=aiSubmit;$('gameAiRefresh').onclick=()=>aiReloadWallet().catch(e=>{console.warn('[bridge]',e);setStatus('Не удалось обновить баланс')});
+$('gameAiAdd').onclick=aiAddResult;
+$('gameAiWarehouse').onclick=aiWarehouse;
+$('gameAiDownload').onclick=()=>{const t=aiState.current;if(!t)return;const a=document.createElement('a');a.href=t.resultUrl;a.download=t.engine==='meshy'?'model.glb':'tile.png';a.click()};
+// Не меняем существующую сцену, материалы и обработчики скульптинга.
+// Интеграционный интерфейс доступен остальной игре:
+window.ROMEROS_GameAI={open:aiOpen,submit:aiSubmit,show:aiShow,refreshWallet:aiReloadWallet,getTasks:()=>aiState.tasks};
+// v16: permit the separate pattern editor to store textures in the EXISTING game tile collection.
+window.ROMEROS_GameAI.addTileBlob=(blob,name)=>registerCustomTile(blob,name);
+aiReloadWallet().catch(()=>{});
 </script>
 <script>document.addEventListener('contextmenu',e=>e.preventDefault());document.addEventListener('dragstart',e=>{if(e.target instanceof HTMLImageElement)e.preventDefault()});
 /* =============================================================
@@ -2511,7 +2799,7 @@ $('historyUndo').onclick=historyBack;$('historyRedo').onclick=historyForward;
 $('duplicateObject').onclick=cloneSceneObject;$('removeObject').onclick=removeSceneObject;
 $('moveObject').onclick=()=>{
  if(!model)return;const vals=['objectX','objectY','objectZ'].map(id=>Number($(id).value));
- if(vals.some(v=>!Number.isFinite(v)||Math.abs(v)>50)){setStatus('Координаты должны быть в диапазоне ±50');return}
+ if(vals.some(v=>!Number.isFinite(v))||Math.abs(vals[0])>SCENE_HALF||Math.abs(vals[2])>SCENE_HALF||Math.abs(vals[1])>SCENE_HALF){setStatus('Граница сцены: X/Z ±5000, Y ±5000');return}
  const previous=model.position.clone(),next=new THREE.Vector3(...vals),offset=next.clone().sub(previous);
  if(offset.lengthSq()<1e-12)return;
  snapshot('Перемещение объекта');model.position.copy(next);
@@ -2522,6 +2810,63 @@ $('moveObject').onclick=()=>{
 };
 document.querySelectorAll('[data-add-object]').forEach(btn=>btn.onclick=()=>addSceneObject(btn.dataset.addObject));
 renderSceneObjects();renderHistorySteps();updateSelectedWire();
+
+/* ROMEROS v14 — подключение импорта текстурированного GLB к исходной 3D-сцене.
+   Импортирует геометрию всех mesh-частей в игровой список models (лимит 24),
+   сохраняет UV и материалы. Это реальные модели сцены, а не только просмотр.
+   Исходный экспорт JSON сцены сохраняет геометрию, но не внешние GLB материалы.
+*/
+window.ROMEROS_GameScene = {
+ async importGLB(url){
+  const data=await new GLTFLoader().loadAsync(url);
+  data.scene.updateMatrixWorld(true);
+  const parts=[];
+  data.scene.traverse(obj=>{
+   if(!obj.isMesh || !obj.geometry?.attributes?.position)return;
+   const g=obj.geometry.clone();g.applyMatrix4(obj.matrixWorld);
+   // Geometries with no index are also supported by the existing sculpt engine.
+   g.computeVertexNormals();g.computeBoundingBox();
+   const mats=(Array.isArray(obj.material)?obj.material:[obj.material]).filter(Boolean);
+   parts.push({geo:g,material:mats[0]?.clone()||mat});
+  });
+  if(!parts.length)throw new Error('GLB does not contain mesh');
+  if(models.length+parts.length>24)throw new Error('Scene capacity reached');
+  const union=new THREE.Box3();parts.forEach(p=>union.union(p.geo.boundingBox));
+  const center=union.getCenter(new THREE.Vector3()),sz=union.getSize(new THREE.Vector3());
+  const factor=2.5/Math.max(.001,sz.x,sz.y,sz.z);
+  snapshot('Импорт GLB');
+  let last=null;
+  for(const part of parts){
+   part.geo.translate(-center.x,-center.y,-center.z);part.geo.scale(factor,factor,factor);
+   const m=newMesh('custom',part.geo);
+   m.userData.name='GLB импорт '+m.userData.objectId;
+   m.material=part.material;
+   m.position.x=(models.length%5-2)*1.4;
+   models.push(m);scene.add(m);last=m;
+  }
+  if(last)selectSceneObject(last.userData.objectId);
+  renderSceneObjects();scheduleAutosave();
+  setStatus('GLB добавлен в сцену · '+parts.length+' частей');
+  return {parts:parts.length};
+ },
+ /** v15: управление общим списком объектов без второй 3D-сцены. */
+ list(){return models.map(m=>({id:m.userData.objectId,name:m.userData.name,selected:m===model,vertices:m.geometry.attributes.position?.count||0,position:m.position.toArray()}))},
+ select(id){selectSceneObject(id);return model?.userData.objectId===Number(id)},
+ moveSelected(x,y,z){
+  if(!model)throw new Error('Нет выбранного объекта');
+  if(![x,y,z].every(Number.isFinite)||Math.abs(x)>SCENE_HALF||Math.abs(z)>SCENE_HALF||Math.abs(y)>SCENE_HALF)throw new Error('Координаты вне игровой зоны');
+  const offset=new THREE.Vector3(x,y,z).sub(model.position);
+  if(offset.lengthSq()<1e-12)return false;
+  snapshot('Перемещение в сцене 10000x10000');
+  model.position.add(offset);
+  for(let i=0;i<tileRecords.length;i++)if(tileRecords[i].objectId===model.userData.objectId){
+   const tile=tileGroup.children[i];if(tile){tile.position.add(offset);tileRecords[i].position=tile.position.toArray()}
+  }
+  updateSelectedWire();renderSceneObjects();scheduleAutosave();return true;
+ },
+ get bounds(){return {width:SCENE_EDGE,depth:SCENE_EDGE,min:-SCENE_HALF,max:SCENE_HALF}}
+};
+
 </script>
 
 <script>
@@ -2567,4 +2912,113 @@ window.addEventListener('load',()=>{
  document.querySelectorAll('.modal').forEach(el=>observer.observe(el,{attributes:true,attributeFilter:['class']}));
 });
 </script>
+
+<!-- ===== ROMEROS v13 / МОДЕЛЬ ПО ОПИСАНИЮ =====
+  Не содержит API-ключей. Все платежи и параметры проверяются Python GUI.
+  vertex_budget — пожелание пользователя; Meshy target_polycount задаёт число ГРАНЕЙ,
+  а число фактических вершин измеряется после загрузки GLB в просмотрщике.
+-->
+<div class="modal rom13-window" id="rom13ModelPanel" aria-label="Создание 3D-модели">
+ <div class="actions"><h2 style="flex:1">Создание 3D-модели</h2><button type="button" id="rom13ModelClose">Закрыть</button></div>
+ <p class="note">Meshy · GLB с текстурами. Количество граней — целевой параметр, фактическое число вершин покажет просмотрщик.</p>
+ <label class="rom13-field">Описание объекта<textarea id="rom13ModelPrompt" maxlength="800" placeholder="Например: керамическая башня из синих шестигранных плиток, реалистичная текстура"></textarea></label>
+ <label class="rom13-field">Целевое число граней <output id="rom13PolyValue">15000</output><input type="range" id="rom13Poly" min="100" max="30000" step="100" value="15000"></label>
+ <label class="rom13-field">Или ввести число граней<input type="number" id="rom13PolyNumber" min="100" max="30000" step="100" value="15000"></label>
+ <label class="rom13-field">Фото-референс (необязательно) <input type="file" id="rom13ModelPhoto" accept="image/png,image/jpeg,image/webp"></label>
+ <div class="rom13-cost" id="rom13ModelPrice">Проверяем тариф GUI…</div>
+ <div class="game-ai-actions"><button class="game-ai-primary" id="rom13ModelSend" type="button">Заказать 3D-модель</button><button id="rom13ModelHistory" type="button">Мои заказы</button></div>
+ <div id="rom13ModelTasks" class="game-ai-tasks" aria-live="polite"></div>
+ <!-- v15: встроенный просмотрщик относится именно к окну заказа; GLB остается доступен в архиве. -->
+ <section id="rom15InlineResult" class="rom15-inline-result" hidden>
+   <div class="rom15-result-head"><b>Готовая 3D-модель</b><span id="rom15ModelStats">GLB</span></div>
+   <div id="rom15InlineCanvas" class="rom15-model-canvas" aria-label="Просмотр модели GLB" ></div>
+   <div class="rom15-tools">
+    <button type="button" id="rom15Spin">Автовращение</button>
+    <button type="button" id="rom15Wire">Сетка</button>
+    <button type="button" id="rom15Recenter">Центр камеры</button>
+    <button type="button" id="rom15FullViewer">На весь экран</button>
+    <button type="button" id="rom15ArchiveSave">В архив</button>
+    <button type="button" id="rom15AddScene">В 3D-сцену</button>
+    <button type="button" id="rom15Download">Скачать GLB</button>
+   </div>
+ </section>
+</div>
+<!-- ===== ROMEROS v13 / ПОКУПКА ТЕКСТУРЫ ===== -->
+<div class="modal rom13-window" id="rom13TexturePanel" aria-label="Покупка текстуры">
+ <div class="actions"><h2 style="flex:1">Покупка текстуры</h2><button type="button" id="rom13TextureClose">Закрыть</button></div>
+ <p class="note">Узор создаётся по тексту, фото либо по рисунку из редактора плиток.</p>
+ <label class="rom13-field">ИИ-генератор<select id="rom13TextureEngine"><option value="gpt">GPT Image API</option><option value="sd15">SD 1.5 · локальная NVIDIA</option></select></label>
+ <label class="rom13-field">Размер готовой плитки<select id="rom13TextureQuality"><option value="standard">512 × 512</option><option value="high" selected>1000 × 1000</option></select></label>
+ <label class="rom13-field">Описание узора<textarea id="rom13TexturePrompt" maxlength="1000" placeholder="Например: бесшовный малахитовый орнамент с янтарными линиями"></textarea></label>
+ <label class="rom13-field">Изображение-референс<input type="file" id="rom13TexturePhoto" accept="image/png,image/jpeg,image/webp"></label>
+ <label class="rom13-check"><input id="rom13TextureDrawing" type="checkbox"> Использовать текущий рисунок плитки из борда</label>
+ <div class="rom13-cost" id="rom13TexturePrice">Проверяем тариф GUI…</div>
+ <div class="game-ai-actions"><button type="button" class="game-ai-primary" id="rom13TextureSend">Купить генерацию текстуры</button><button type="button" id="rom13TextureHistory">Мои заказы</button></div>
+ <div id="rom13TextureTasks" class="game-ai-tasks" aria-live="polite"></div>
+</div>
+<!-- ===== ROMEROS v13 / ПОЛНОЭКРАННЫЙ GLB ПРОСМОТРЩИК ===== -->
+<div id="rom13Viewer" class="rom13-viewer" hidden role="dialog" aria-label="Просмотр GLB">
+ <header class="rom13-viewerbar"><b>ROMEROS / 3D VIEWER</b><span id="rom13ViewerInfo">GLB</span><button type="button" id="rom13ViewerClose">Закрыть</button></header>
+ <div id="rom13ViewerCanvas" class="rom13-viewer-canvas"></div>
+ <div class="rom13-viewer-controls"><button id="rom13ViewerReset">Центр</button><button id="rom13ViewerSpin">Автовращение</button><button id="rom13ViewerWire">Сетка</button><button id="rom13ViewerDownload">Скачать GLB</button><button id="rom13ViewerScene">В сцену</button><button id="rom13ViewerWarehouse">На склад</button></div>
+ <div class="rom13-viewerhint">ЛКМ — вращать · колесо — приблизить · ПКМ — перемещать. Текстуры берутся из GLB.</div>
+</div>
+<div class="rom13-toast" id="rom13Toast" hidden aria-live="polite"></div>
+
+<script type="module" src="/game/romeros_extra.js"></script>
+
+<!-- ===== ROMEROS v14: МЕНЮ, СЦЕНЫ, НАСТРОЙКИ И ИНСТРУМЕНТЫ ===== -->
+<div class="modal rom14-panel" id="rom14Panel" role="dialog" aria-modal="true" aria-label="ROMEROS раздел">
+  <div class="rom14-head"><div><small id="rom14Subtitle">ROMEROS / WORKSPACE</small><h2 id="rom14Title">Мастерская</h2></div><button id="rom14Close" type="button" aria-label="Закрыть">✕</button></div>
+  <div id="rom14Body" class="rom14-body"></div>
+</div>
+<div id="rom14MoreMenu" class="rom14-popup" hidden aria-label="Дополнительные разделы"></div>
+<div id="rom14Notice" class="rom14-notice" hidden aria-live="polite"></div>
+<input id="rom14ImportGLB" hidden type="file" accept=".glb,model/gltf-binary">
+<!-- scripts: основной игровой движок остается в HTML, расширения — отдельные файлы -->
+<script type="module" src="/game/romeros_menus.js"></script>
+
+
+<!-- v15: Архив физических GLB в IndexedDB. Без API-ключей, файлы остаются в браузере. -->
+<div id="rom15Archive" class="rom15-archive" role="dialog" aria-label="Архив GLB" hidden>
+ <section class="rom15-archive-window">
+  <div class="actions"><h2 style="flex:1">Архив созданных GLB</h2><button id="rom15ArchiveClose" type="button">Закрыть</button></div>
+  <p class="rom15-help">Модели хранятся в браузере как файлы GLB (IndexedDB). Вы можете открыть, скачать, удалить или добавить любую модель в текущую сцену. Очистка данных браузера удаляет локальный архив.</p>
+  <div id="rom15ArchiveList"></div>
+ </section>
+</div>
+<script type="module" src="/game/romeros_workspace.js"></script>
+
+<!-- v16: Tile Studio: independent editable drawing integrated with original scene. -->
+<div id="rom16TileCreator" class="rom16-overlay" hidden role="dialog" aria-modal="true" aria-label="Создание плитки">
+ <section class="rom16-panel">
+  <div class="rom16-head"><div><h2>Создание плитки</h2><small>Орнаменты · симметрия · рисунок + промпт</small></div><button id="rom16Close" type="button">Закрыть</button></div>
+  <div class="rom16-main">
+   <div class="rom16-editor"><canvas id="rom16Canvas" width="1000" height="1000"></canvas><span id="rom16Info" class="rom16-hint">Холст 1000 × 1000 · PNG</span></div>
+   <div class="rom16-controls">
+    <label>Форма плитки<select id="rom16Shape"><option value="square">□ Квадрат · 4 сектора</option><option value="triangle">△ Треугольник · 3 сектора</option><option value="hexagon">⬡ Шестигранник · 6 секторов</option></select></label>
+    <div class="rom16-buttons"><button data-r16-tool="brush" class="active">Кисть</button><button data-r16-tool="eraser">Ластик</button><button data-r16-tool="line">Линия</button><button data-r16-tool="dot">Точки</button></div>
+    <label>Цвет кисти<input id="rom16Color" type="color" value="#216da8"></label>
+    <label>Цвет поверхности<input id="rom16Base" type="color" value="#e5eef5"></label><label>Загрузить фото на плитку (будет обрезано квадратом)<input id="rom16Photo" type="file" accept="image/png,image/jpeg,image/webp"></label><div class="rom16-buttons"><button id="rom16ClearPhoto" type="button">Убрать фото-подложку</button></div>
+    <label>Толщина <span id="rom16SizeValue">14</span><input id="rom16Size" type="range" min="1" max="100" value="14"></label>
+    <label class="rom16-check"><input id="rom16Repeat" type="checkbox" checked> Повторять по секторам</label>
+    <label class="rom16-check"><input id="rom16Mirror" type="checkbox"> Зеркальное отражение</label>
+    <label class="rom16-check"><input id="rom16Grid" type="checkbox"> Показать сетку</label>
+    <div class="rom16-buttons"><button id="rom16Undo">↶ Отмена</button><button id="rom16Redo">↷ Повтор</button><button id="rom16Clear">Очистить</button></div>
+    <label>Описание для AI<textarea id="rom16Prompt" maxlength="800" placeholder="Доработать узор: малахит, янтарные прожилки, гжель…"></textarea></label>
+    <label>Размер подготовленного квадратного эскиза<select id="rom16ExportSize"><option value="1024">1024 × 1024</option><option value="2048" selected>2048 × 2048</option><option value="4096">4096 × 4096</option><option value="8192">8192 × 8192 · ПК</option></select></label>
+    <div class="rom16-buttons"><button id="rom16Save">Сохранить рисунок</button><button id="rom16Download">Скачать PNG</button><button id="rom16ExportProject">Проект JSON</button><button id="rom16ImportProject">Открыть JSON</button></div>
+    <div class="rom16-buttons rom16-primary-actions"><button id="rom16ToTexture">✧ Доработать текстуру</button><button id="rom16ToModel">⬡ Создать 3D-плитку</button></div>
+    <small>Изображение преобразуется в квадрат и сжимается до 20 МиБ для GUI (8192×8192 на ПК, на мобильных лучше 4096×4096). Облачные генераторы требуют подключения сервера и оплачиваются по его прайсу.</small>
+   </div>
+  </div>
+ </section>
+</div>
+<!-- v16: история текстур и моделей по отдельному пункту меню. Только сохранённые файлы доступны после перезапуска. -->
+<div id="rom16History" class="rom16-overlay" hidden role="dialog" aria-label="История генераций">
+ <section class="rom16-panel rom16-history-panel"><div class="rom16-head"><h2>История моих генераций</h2><button id="rom16HistoryClose">Закрыть</button></div><p class="rom16-hint">Готовые PNG и GLB сохраняются локально в IndexedDB. Отдельная серверная история потребует аккаунтов.</p><div class="rom16-history-tabs"><button id="rom16HistoryImages" class="active">Текстуры PNG</button><button id="rom16HistoryModels">Модели GLB</button></div><div id="rom16HistoryList"></div></section>
+</div>
+<!-- v16: итоговое изображение в отдельном окне с действующими кнопками. -->
+<div id="rom16TextureResult" class="rom16-overlay" hidden role="dialog" aria-label="Результат генерации текстуры"><section class="rom16-panel rom16-output"><div class="rom16-head"><h2>Готовая текстура</h2><button id="rom16ResultClose">Закрыть</button></div><div class="rom16-image-container"><img id="rom16ResultImage" alt="Результат генерации квадратной текстуры"></div><p id="rom16ResultMeta" class="rom16-hint"></p><div class="rom16-buttons"><button id="rom16ResultDownload">Скачать PNG</button><button id="rom16ResultSave">В архив</button><button id="rom16ResultScene">Добавить к моим плиткам</button><button id="rom16ResultRework">Доработать ещё</button></div></section></div>
+<script type="module" src="/game/romeros_tile_creator.js"></script>
 </body></html>
