@@ -558,6 +558,21 @@ button{ -webkit-tap-highlight-color:transparent }
   .rom13-viewer:not([hidden]){height:85dvh!important;min-height:180px}
 }
 
+
+/* ROMEROS v20: компактные тарифы и панель симметрии, адаптивность. */
+.rom20-symmetry{background:#213246;border-radius:11px;padding:10px;margin:8px 0;color:#e5f0fa}
+.rom20-symmetry summary{cursor:pointer;font-weight:650;font-size:12px}
+.rom20-symmetry label{display:grid;gap:5px;margin:9px 0;font-size:11px}
+.rom20-symmetry select,.rom20-symmetry input[type=range]{width:100%;max-width:100%;background:#31485d;border:0;color:#eaf3ff;padding:7px;border-radius:7px}
+.rom20-symmetry label.rom16-check{display:flex;align-items:center}
+.rom20-symmetry label.rom16-check input{width:auto}
+.rom20-sym-buttons{display:flex;gap:5px;flex-wrap:wrap}
+.rom20-sym-buttons button{min-width:31px;flex:1;padding:7px;border:0;border-radius:7px;background:#304b62}
+.rom20-tariff{position:fixed;z-index:235;top:50%;left:50%;transform:translate(-50%,-50%);width:min(450px,calc(100vw - 28px));max-height:min(75dvh,620px);overflow-y:auto;background:#192938;color:#e8f1fb;padding:16px;border-radius:16px;box-shadow:none}
+.rom20-tariff[hidden]{display:none!important}.rom20-tariff-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.rom20-tariff-head strong{font-size:14px}
+.rom20-tariff p{font-size:11px;line-height:1.6;color:#a9bfd0}.rom20-tariff-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px;background:#263b4f;border-radius:9px;margin:6px 0;font-size:12px}
+.rom20-tariff-row b{color:#83dbad;white-space:nowrap}.rom20-tariff-actions{display:flex;gap:6px;margin-top:10px}.rom20-tariff-actions button{flex:1;background:#28648d;border:0}
+@media(max-width:600px){.rom20-tariff{padding:12px}.rom20-sym-buttons button{font-size:11px}.rom20-tariff-row{font-size:11px}}
 </style>
 <script>
 // Ошибки диагностики выводим разработчику в консоль, но не игроку.
@@ -2780,10 +2795,10 @@ async function aiJson(url,options){const r=await fetch(url,{credentials:'same-or
 async function aiReloadWallet(){const wallet=await aiJson('/api/wallet');aiState.wallet=wallet;
   const p=loadProfile();p.coins=Number(wallet.coins||0);saveProfile(p);addCoinsView();
   $('gameAiBalance').textContent='Монеты: '+aiFmt(wallet.coins);aiUpdatePrice();return wallet;}
-async function aiReloadPrices(){aiState.pricesReady=false;aiUpdatePrice();const obj=await aiJson('/api/prices');if(!obj.coin_prices)throw Error('Missing server coin prices');aiState.prices=obj.coin_prices;aiState.pricesReady=true;aiUpdatePrice();}
+async function aiReloadPrices(){aiState.pricesReady=false;aiUpdatePrice();const obj=await aiJson('/api/prices');if(!obj.coin_prices)throw Error('Missing server coin prices');aiState.prices=obj.coin_prices;aiState.baseFee=Number(obj.base_fee||0);aiState.generationPrices=obj.generation_prices||{};aiState.pricesReady=true;aiUpdatePrice();}
 function aiUpdatePrice(){const engine=$('gameAiEngine').value,quality=$('gameAiQuality').value;
   const q=engine==='meshy'?'high':quality;const cost=aiState.prices[engine]?.[q];
-  $('gameAiCost').textContent=!aiState.pricesReady||!Number.isInteger(cost)||cost<=0?'Цена уточняется на сервере…':`Стоимость заказа: ${aiFmt(cost)} монет · без доплат`;
+  $('gameAiCost').textContent=!aiState.pricesReady||!Number.isInteger(cost)||cost<=0?'Цена уточняется на сервере…':`Запрос ${aiFmt(aiState.baseFee)} + генерация ${aiFmt(aiState.generationPrices[engine]?.[q]??cost-aiState.baseFee)} = ${aiFmt(cost)} монет`;
   $('gameAiSubmit').disabled=!aiState.pricesReady||!Number.isInteger(cost)||cost<=0;
   const meshy=engine==='meshy';$('gameAiQuality').disabled=meshy;
 }
@@ -3110,6 +3125,19 @@ window.addEventListener('load',()=>{
     <label>Цвет кисти<input id="rom16Color" type="color" value="#216da8"></label>
     <label>Цвет поверхности<input id="rom16Base" type="color" value="#e5eef5"></label><label>Загрузить фото на плитку (будет обрезано квадратом)<input id="rom16Photo" type="file" accept="image/png,image/jpeg,image/webp"></label><div class="rom16-buttons"><button id="rom16ClearPhoto" type="button">Убрать фото-подложку</button></div>
     <label>Толщина <span id="rom16SizeValue">14</span><input id="rom16Size" type="range" min="1" max="100" value="14"></label>
+    <!-- v20: полноразмерные параметры симметрии без отдельного тяжелого canvas. -->
+    <details class="rom20-symmetry" open>
+      <summary>◈ Панель симметрии плитки</summary>
+      <label>Схема симметрии
+        <select id="rom20SymmetryMode"><option value="rotate">Вращение по секторам</option><option value="mirror">Радиальное зеркало</option><option value="none">Без симметрии</option></select>
+      </label>
+      <label>Количество секторов <output id="rom20SectorsValue">4</output>
+        <input id="rom20Sectors" type="range" min="1" max="12" step="1" value="4">
+      </label>
+      <div class="rom20-sym-buttons"><button id="rom20SectorAuto" type="button">По форме</button><button id="rom20Sector2" type="button">2</button><button id="rom20Sector4" type="button">4</button><button id="rom20Sector6" type="button">6</button><button id="rom20Sector8" type="button">8</button><button id="rom20Sector12" type="button">12</button></div>
+      <label class="rom16-check"><input id="rom20SymmetryGuides" type="checkbox" checked> Линии секторов на холсте (в PNG не попадут)</label>
+      <small>Кисть, линия, точки и ластик повторяются с выбранной симметрией. Можно рисовать один сектор и видеть целую плитку.</small>
+    </details>
     <label class="rom16-check"><input id="rom16Repeat" type="checkbox" checked> Повторять по секторам</label>
     <label class="rom16-check"><input id="rom16Mirror" type="checkbox"> Зеркальное отражение</label>
     <label class="rom16-check"><input id="rom16Grid" type="checkbox"> Показать сетку</label>
@@ -3130,4 +3158,13 @@ window.addEventListener('load',()=>{
 <!-- v16: итоговое изображение в отдельном окне с действующими кнопками. -->
 <div id="rom16TextureResult" class="rom16-overlay" hidden role="dialog" aria-label="Результат генерации текстуры"><section class="rom16-panel rom16-output"><div class="rom16-head"><h2>Готовая текстура</h2><button id="rom16ResultClose">Закрыть</button></div><div class="rom16-image-container"><img id="rom16ResultImage" alt="Результат генерации квадратной текстуры"></div><p id="rom16ResultMeta" class="rom16-hint"></p><div class="rom16-buttons"><button id="rom16ResultDownload">Скачать PNG</button><button id="rom16ResultSave">В архив</button><button id="rom16ResultScene">Добавить к моим плиткам</button><button id="rom16ResultRework">Доработать ещё</button></div></section></div>
 <script type="module" src="/game/romeros_tile_creator.js"></script>
-</body></html>
+
+<!-- v20: доступный игроку тариф. Стоимость подтверждается API /api/prices, а не вычисляется для списания в браузере. -->
+<div id="rom20Tariff" class="rom20-tariff" hidden role="dialog" aria-label="Тарифы AI">
+  <div class="rom20-tariff-head"><strong>Тарифы генерации · монеты</strong><button id="rom20TariffClose" type="button">Закрыть</button></div>
+  <p>За каждый запрос списывается 1000 монет + стоимость выбранной генерации. Итог подтверждает GUI до обработки.</p>
+  <div id="rom20TariffList"></div>
+  <div class="rom20-tariff-actions"><button id="rom20TariffTexture">Создать текстуру</button><button id="rom20TariffModel">Создать 3D</button></div>
+  <p id="rom20TariffBalance" class="rom20-hint">Загрузка баланса…</p>
+</div>
+<script type="module" src="/game/romeros_v20.js"></script></body></html>
