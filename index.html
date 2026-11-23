@@ -1,4 +1,4 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ROMEROS PLITKA — Sculpt App</title><meta name="theme-color" content="#172638"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="manifest" href="/game/manifest.webmanifest"><link rel="icon" href="/game/app-icon.svg" type="image/svg+xml">
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ROMEROS PLITKA v22 — Sculpt & Tile Studio</title><meta name="theme-color" content="#172638"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="manifest" href="/game/manifest.webmanifest"><link rel="icon" href="/game/app-icon.svg" type="image/svg+xml">
 <style>
 /* ===============================================================
    UI — базовые цвета, компоновка, панели, редактор, мобильные экраны
@@ -635,6 +635,38 @@ body .rom14-popup{max-height:min(70dvh,450px)!important;overflow:auto!important}
 @media(max-height:550px){body .modal,body .modal.open,body #rom14Panel,body .rom13-window{max-height:78dvh!important}body .rom16-panel{max-height:92dvh!important}}
 @media(prefers-reduced-motion:reduce){.modal,.rom16-overlay{scroll-behavior:auto!important}}
 
+
+/* ==============================================================
+ ROMEROS V22: UI/Telegram Lite — переменные менять здесь.
+ =============================================================== */
+:root{--r22-bg:#101923;--r22-panel:#192736;--r22-card:#25384a;--r22-accent:#3390ec;--r22-ink:#eaf2fb;--r22-muted:#96aec2;--r22-good:#5bce98;--r22-radius:15px}
+#marketPanel{width:min(570px,calc(100vw - 24px))!important;max-height:min(78dvh,680px)!important;overflow-y:auto!important;background:var(--r22-panel)!important}
+#marketList{display:block!important;min-width:0!important}
+#marketList>p{display:block;width:100%;margin:8px 0 12px}
+#marketList>.marketGrid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr))!important;gap:10px!important;max-width:100%!important;width:100%!important}
+#marketList .marketCard{display:flex!important;flex-direction:column!important;min-width:0!important;border:0!important;border-radius:12px!important;background:#223247!important;overflow:hidden!important}
+#marketList .marketCard img{width:100%!important;height:110px!important;object-fit:cover!important}
+#marketList .marketCard .mBody{min-width:0!important;display:flex!important;flex-direction:column!important;gap:5px!important;padding:9px!important}
+#marketList .marketCard button{margin-top:auto!important;width:100%!important}
+#marketClaim{display:none!important}#marketPanel .row{min-width:0;flex-wrap:wrap}
+.rom22-ai-helper{display:grid;gap:10px;padding:12px;background:#24394c;border-radius:13px;margin:10px 0}
+.rom22-ai-helper label{display:grid;gap:7px;color:var(--r22-muted);font-size:12px}
+.rom22-ai-helper textarea{width:100%;min-width:0;min-height:90px;background:#142537;border:0;border-radius:9px;padding:10px;color:var(--r22-ink);resize:vertical;font:inherit}
+.rom22-ai-answer{white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;background:#182838;border-radius:9px;padding:11px;min-height:55px;font-size:12px}
+.rom22-control-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.rom22-control-row button{flex:1 1 115px;min-width:0;border:0!important;border-radius:10px!important;background:#2b4862!important;padding:9px!important}
+.rom22-tile-panel{width:min(430px,calc(100vw - 24px))!important;max-height:min(76dvh,620px)!important;z-index:190!important;background:var(--r22-panel)!important}
+.rom22-tool-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.rom22-tool-buttons button{display:grid;justify-items:center;gap:2px;font-size:10px;border:0!important;background:#263c51!important;padding:8px 2px!important}.rom22-tool-buttons button.active{background:#28699a!important}.rom22-tool-buttons span{font-size:19px}
+.rom22-field{display:grid!important;gap:6px;margin:14px 0!important}.rom22-field input{width:100%;accent-color:var(--r22-accent)}
+.rom22-library-toggle{flex:none;padding:3px 8px!important;font-size:10px!important;border:0!important;border-radius:10px!important;background:#2b4154!important}
+footer.tiles-hidden .tileList,footer.tiles-hidden .tile-scroller{display:none!important}body:has(footer.tiles-hidden){--mini-footer:61px!important}
+footer.tiles-hidden .footerTop{display:none!important}
+#bottomDock,#dockScroller{max-width:100%;min-width:0}#dockScroller{overflow-x:auto!important;scrollbar-width:none!important;overscroll-behavior-x:contain}#dockScroller::-webkit-scrollbar{display:none}
+#dockScroller button{flex:0 0 auto!important;border-radius:18px!important;white-space:nowrap!important}
+#rom22BottomDockBtn{display:inline-flex;align-items:center;gap:5px}
+@media(min-width:1100px){#marketPanel{width:570px!important}#rom22TilePanel{width:430px!important}#bottomDock{max-width:min(1020px,calc(100vw - 40px));margin:0 auto;width:100%}footer .tileList{max-width:min(1020px,100%)!important;margin-inline:auto}}
+@media(max-width:600px){#marketList>.marketGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#marketList .marketCard img{height:94px!important}.rom22-tool-buttons button{font-size:9px}.rom22-tile-panel{max-height:74dvh!important}}
+@media(max-width:340px){#marketList>.marketGrid{grid-template-columns:1fr!important}}
 </style>
 <script>
 // Ошибки диагностики выводим разработчику в консоль, но не игроку.
@@ -803,9 +835,9 @@ window.addEventListener('unhandledrejection', e => { console.warn('[ROMEROS inte
     <div id="marketPanel" class="modal">
       <div class="actions"><h2 style="flex:1;margin:0">Рынок плиток</h2><button id="closeMarket">Закрыть</button></div>
       <p class="note">Бесплатны первые 3 PNG. Остальные 27 открываются за игровые монеты и добавляются в рабочую библиотеку после покупки.</p>
-      <div class="row"><span>Монеты: <b id="coinsView">0</b></span><button id="marketClaim">Получить +5 монет (раз в час)</button></div>
+      <div class="row"><span>Монеты: <b id="coinsView">0</b></span><button id="marketClaim">Награды отключены: баланс на сервере</button></div>
       <div class="shape-options" id="marketShapeOptions"><span>Форма товара:</span><button data-market-shape="all" class="active">Все</button><button data-market-shape="triangle">△</button><button data-market-shape="square">□</button><button data-market-shape="hexagon">⬡</button></div><div class="menu-tabs"><button class="active" data-market-tab="tiles">Плитки</button><button data-market-tab="tickets">Билеты</button><button data-market-tab="tokens">Токены</button></div>
-<div class="marketSection active" id="marketTiles"><div class="game-ai-actions"><button type="button" id="gameAiFromMarket" class="ai-shine">✧ Купить генерацию новой плитки</button></div><div id="marketList" class="marketGrid"></div></div>
+<div class="marketSection active" id="marketTiles"><div class="game-ai-actions"><button type="button" id="gameAiFromMarket" class="ai-shine">✧ Генерировать плитку</button></div><div id="marketList"></div></div>
 <div class="marketSection" id="marketTickets"></div><div class="marketSection" id="marketTokens"></div>
 <p class="note">Все покупки за игровые монеты. Оплата реальными деньгами не подключена.</p>
     </div>
@@ -814,13 +846,21 @@ window.addEventListener('unhandledrejection', e => { console.warn('[ROMEROS inte
     <div id="aiPanel" class="modal">
       <div class="actions"><h2 style="flex:1;margin:0">AI-советник</h2><button id="closeAi">Закрыть</button></div>
       <p class="note">Локальный помощник: анализирует вашу историю и предлагает борд, плитки и палитру.</p>
-      <div class="shape-ai"><b>Предпромпт: геометрия плитки</b><div class="shape-options" id="aiShapeOptions"><button data-ai-shape="triangle">△ Треугольник</button><button data-ai-shape="square" class="active">□ Квадрат</button><button data-ai-shape="hexagon">⬡ Шестиугольник</button></div><label>Описание рисунка / фотографии<input id="aiShapeDescription" type="text" maxlength="400" placeholder="Например: резьба по камню, листья, мозаика"></label><button id="aiBuildPrompt">Составить предпромпт</button><button id="aiOpenBoard">Рисовать выбранную форму</button><p class="note">AI формирует текст запроса локально. Для настоящей генерации изображений потребуется подключение модели/API.</p></div>
+      <div class="shape-ai"><b>Предпромпт: геометрия плитки</b><div class="shape-options" id="aiShapeOptions"><button data-ai-shape="triangle">△ Треугольник</button><button data-ai-shape="square" class="active">□ Квадрат</button><button data-ai-shape="hexagon">⬡ Шестиугольник</button></div><label>Описание рисунка / фотографии<input id="aiShapeDescription" type="text" maxlength="400" placeholder="Например: резьба по камню, листья, мозаика"></label><button id="aiBuildPrompt">Составить предпромпт</button><button id="aiOpenBoard">Рисовать выбранную форму</button><p class="note">Составьте эскиз и получите варианты узора от языковой модели за 15 монет. Результат можно использовать в генерации текстуры.</p></div>
       <div class="actions">
         <button id="aiIdea">Идея борда</button>
         <button id="aiPalette">Палитра</button>
         <button id="aiTiles">Подбор плиток</button>
       </div>
-      <div id="aiOut" class="aiOut">Нажмите кнопку — совет появится здесь.</div>
+      <div id="rom22Assist" class="rom22-ai-helper">
+  <label>ИИ-помощник по созданию плитки · 15 монет
+    <textarea id="rom22AssistPrompt" maxlength="1000" rows="3" placeholder="Например: предложи 3 варианта симметричной малахитовой плитки с геометрическим узором"></textarea>
+  </label>
+  <div class="rom22-control-row"><button id="rom22AssistSend" type="button">✧ Получить варианты · 15 монет</button><button id="rom22AssistToTexture" type="button">Использовать ответ для текстуры</button></div>
+  <p id="rom22AssistStatus" class="note" aria-live="polite">Запрос отправляется в GPT через GUI; при ошибке монеты возвращаются.</p>
+  <div id="rom22AssistAnswer" class="rom22-ai-answer" aria-live="polite"></div>
+</div>
+<div id="aiOut" class="aiOut">Нажмите кнопку — совет появится здесь.</div>
     </div>
 
     <!-- Профиль и история -->
@@ -853,7 +893,7 @@ window.addEventListener('unhandledrejection', e => { console.warn('[ROMEROS inte
   <div class="game-ai-actions"><button type="button" id="gameAiAttachDrawing">Прикрепить рисунок</button><label class="game-ai-upload">Фото PNG/JPG<input id="gameAiPhoto" type="file" accept="image/png,image/jpeg,image/webp" hidden></label></div>
   <p id="gameAiAttachment" class="note">Без вложения · текстовая генерация</p>
   <div class="game-ai-summary"><span id="gameAiCost">Уточняем стоимость на сервере…</span><b id="gameAiBalance">Баланс…</b></div>
-  <div class="game-ai-actions"><button type="button" id="gameAiSubmit" class="game-ai-primary">Купить генерацию →</button><button type="button" id="gameAiRefresh">Обновить кошелёк</button></div>
+  <div class="game-ai-actions"><button type="button" id="gameAiSubmit" class="game-ai-primary">Отправить запрос →</button><button type="button" id="gameAiRefresh">Обновить кошелёк</button></div>
   <div id="gameAiTasks" class="game-ai-tasks" aria-live="polite"></div>
 </div>
 <div id="gameAiPreviewPanel" class="modal game-ai-preview" role="dialog" aria-label="Готовая плитка">
@@ -912,7 +952,7 @@ window.addEventListener('unhandledrejection', e => { console.warn('[ROMEROS inte
 </main>
 
 <footer>
-  <div class="footerTop">
+  <div class="footerTop"><button type="button" id="rom22LibraryToggle" class="rom22-library-toggle" aria-expanded="true">▥ Скрыть плитки</button>
     <b>МОИ ПЛИТКИ / КОЛЛЕКЦИЯ</b>
     <span id="selectedName">01 · Камень и мох</span>
     <span class="muted" id="tileCountLabel">30 плиток</span><div class="tile-scroller"><button type="button" id="tilesLeft" title="Прокрутить плитки влево">‹</button><button type="button" id="tilesRight" title="Прокрутить плитки вправо">›</button></div>
@@ -966,6 +1006,21 @@ window.addEventListener('unhandledrejection', e => { console.warn('[ROMEROS inte
     <div id="historySteps" class="sculpt-v5-list"></div>
     <div class="actions"><button id="historyUndo">↶ Отменить</button><button id="historyRedo">↷ Повторить</button></div>
   </div>
+<!-- ROMEROS v22: Редактирование УЖЕ установленных плиток; выбор новой текстуры не меняет старые -->
+<div id="rom22TilePanel" class="modal rom22-tile-panel" role="dialog" aria-label="Редактирование плитки">
+ <div class="actions"><h2 style="flex:1;margin:0">Инструменты плитки</h2><button type="button" id="rom22TileClose">Закрыть</button></div>
+ <p class="note" id="rom22TileSelected">Выберите плитку в сцене, затем меняйте положение и размер.</p>
+ <div class="rom22-tool-buttons">
+  <button data-rom22-tool="select" type="button" title="Выделить плитку"><span>▧</span> Выбор</button>
+  <button data-rom22-tool="move" type="button" title="Перемещать плитку мышью"><span>✥</span> Move</button>
+  <button data-rom22-tool="rotate" type="button" title="Поворот плитки"><span>↻</span> Rotate</button>
+  <button data-rom22-tool="scale" type="button" title="Изменить размер плитки"><span>⤢</span> Scale</button>
+ </div>
+ <label class="rom22-field">Размер плитки <output id="rom22TileScaleLabel">0.55</output><input id="rom22TileScale" type="range" min="0.05" max="5" step="0.01" value="0.55"></label>
+ <label class="rom22-field">Поворот вокруг нормали <output id="rom22TileRotationLabel">0°</output><input id="rom22TileRotation" type="range" min="-180" max="180" step="1" value="0"></label>
+ <div class="rom22-control-row"><button id="rom22TileTexture" type="button">Нанести выбранную текстуру на эту плитку</button><button id="rom22TileDelete" type="button">⌫ Удалить плитку</button></div>
+ <p class="note">«Move» → перетащите плитку по поверхности объекта. «Выбор» текстуры в библиотеке влияет только на следующие новые плитки.</p>
+</div>
 <div id="tileActionMenu"><button id="tileActionCreate">Создать</button><button id="tileActionBuy">Купить</button><button id="tileActionAdd">Добавить</button></div>
 
 <script src="/game/romeros_image.js" defer></script>
@@ -1078,16 +1133,13 @@ const LS_MARKET  = 'plitka-market-v1';
 function readJSON(key, fallback){ try { const s=localStorage.getItem(key); return s?JSON.parse(s):fallback; } catch { return fallback; } }
 function writeJSON(key, value){ try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch(e){ setStatus('Не удалось сохранить в localStorage: '+e.message); return false; } }
 
-const DEFAULT_PROFILE = { name:'Гость', coins:1000, createdAt:nowISO(), lastSeen:nowISO(), board:'stone', ownedTiles:[], lastClaim:0 };
+const DEFAULT_PROFILE = { name:'Гость', coins:1000000, createdAt:nowISO(), lastSeen:nowISO(), board:'stone', ownedTiles:[], lastClaim:0 };
 function loadProfile(){
   const p = readJSON(LS_PROFILE, null);
   const result = Object.assign({}, DEFAULT_PROFILE, p||{});
-  // One-time migration: credit 1000 starter coins to existing accounts.
-  if(!localStorage.getItem('plitka-starter-1000-v8')){
-    result.coins = Math.max(0, Number(result.coins)||0) + (p ? 1000 : 0);
-    writeJSON(LS_PROFILE, result);
-    try { localStorage.setItem('plitka-starter-1000-v8','1'); } catch {}
-  }
+  // Монеты: сервер SQLite является источником истины. Для первого локального запуска 1 млн.
+  // Синхронизация после загрузки через /api/wallet, здесь нет повторных бонусов.
+  if(!p)writeJSON(LS_PROFILE,result);
   return result;
 }
 function saveProfile(p){ p.lastSeen = nowISO(); writeJSON(LS_PROFILE, p); }
@@ -2005,13 +2057,9 @@ function selectTexture(index){
   const shapeStock=$('shapeStock');if(shapeStock)shapeStock.textContent='Осталось: '+(index<FREE_TILE_COUNT?freeTileCounts()[index]:paidCount(index));
   document.querySelectorAll('.tileCard').forEach(c=>c.classList.toggle('active',Number(c.dataset.index)===index));
   $('selectedName').textContent = String(index+1).padStart(2,'0') + ' · ' + NAMES[index];
-  if(activeTile && tileGroup.children.includes(activeTile)){
-    snapshot();
-    applyTextureToTile(activeTile, index, +$('textureRotation').value, $('textureFlip').checked);
-    setStatus('Текстура нанесена на выбранную плитку');
-  } else {
-    setStatus('Текстура выбрана. Нажмите на модель для размещения плитки');
-  }
+  // v22: выбор текстуры меняет ТОЛЬКО будущие плитки. Уже установленные не меняем.
+  // Существующую плитку можно изменить отдельно через панель «Редактировать плитку».
+  setStatus('Выбрана текстура для следующих плиток. Установленные плитки без изменений.');
   setMode('tile');
   historyPush('selectTexture', { index, name: NAMES[index] });
 }
@@ -2102,9 +2150,10 @@ renderer.domElement.addEventListener('pointerdown', e=>{
   if(mode==='refine'){snapshot();lastRefineAt=0;refineAt(h)}
   if(mode==='tile'){
     if(tileHit&&(!h||tileHit.distance<h.distance)){
+      // Выбор уже установленной плитки не наносит новую текстуру автоматически.
       activeTile=tileHit.object.userData.tile?tileHit.object:tileHit.object.parent;
-      applyTextureToTile(activeTile,selected,+$('textureRotation').value,$('textureFlip').checked);
-      setStatus('Текстура нанесена на плитку');
+      window.ROMEROS_TileEdit?.refresh();
+      setStatus('Плитка выделена. Редактирование доступно в панели плитки.');
     }else if(h)placeTile(h);
   }
   if(mode==='erase')eraseTile(tileHit);
@@ -2430,12 +2479,7 @@ function renderMarket(){
 }
 $('closeBoards').onclick = ()=>$('boardsPanel').classList.remove('open');
 $('closeMarket').onclick = ()=>$('marketPanel').classList.remove('open');
-$('marketClaim').onclick = ()=>{
-  const p = loadProfile(); const now = Date.now();
-  if(now - (p.lastClaim||0) < 3600*1000){ setStatus('Награда уже получена. Возвращайтесь позже.'); return; }
-  p.coins += 5; p.lastClaim = now; saveProfile(p); addCoinsView();
-  setStatus('Получено +5 монет'); historyPush('marketClaim',{coins:p.coins});
-};
+$('marketClaim').onclick=()=>setStatus('Игровой баланс управляется сервером.');
 
 /* --- AI-советник --- */
 const AI_IDEAS = [
@@ -2847,7 +2891,7 @@ document.querySelectorAll('[data-shape]').forEach(b=>b.addEventListener('click',
 document.querySelectorAll('[data-ai-shape]').forEach(b=>b.addEventListener('click',()=>chooseShape(b.dataset.aiShape)));
 $('aiBuildPrompt').onclick=()=>{
  const desc=$('aiShapeDescription').value.trim()||'орнамент для декоративной игровой плитки';
- $('aiOut').textContent='Создай текстуру для игровой плитки. Форма: '+shapeLabels[selectedAiShape]+'. Изображение: '+desc+'. Строго внутри геометрического контура, без выхода за края, квадратный холст 1024×1024, прозрачный фон вне формы, вид строго сверху, без теней за пределами фигуры. PNG.\n\nЭто предпромпт: генерация изображения пока не подключена.';
+ $('aiOut').textContent='Создай текстуру для игровой плитки. Форма: '+shapeLabels[selectedAiShape]+'. Изображение: '+desc+'. Строго внутри геометрического контура, без выхода за края, квадратный холст 1024×1024, прозрачный фон вне формы, вид строго сверху, без теней за пределами фигуры. PNG.\n\nДля запроса варианта воспользуйтесь AI-помощником ниже.';
 };
 $('aiOpenBoard').onclick=()=>{openModal('drawingPanel');setStatus('Нарисуйте текстуру для формы '+shapeLabels[selectedTileShape])};
 document.querySelectorAll('[data-market-shape]').forEach(b=>b.onclick=()=>{
@@ -2880,7 +2924,7 @@ async function aiReloadWallet(){const wallet=await aiJson('/api/wallet');aiState
 async function aiReloadPrices(){aiState.pricesReady=false;aiUpdatePrice();const obj=await aiJson('/api/prices');if(!obj.coin_prices)throw Error('Missing server coin prices');aiState.prices=obj.coin_prices;aiState.baseFee=Number(obj.base_fee||0);aiState.generationPrices=obj.generation_prices||{};aiState.pricesReady=true;aiUpdatePrice();}
 function aiUpdatePrice(){const engine=$('gameAiEngine').value,quality=$('gameAiQuality').value;
   const q=engine==='meshy'?'high':quality;const cost=aiState.prices[engine]?.[q];
-  $('gameAiCost').textContent=!aiState.pricesReady||!Number.isInteger(cost)||cost<=0?'Цена уточняется на сервере…':`Запрос ${aiFmt(aiState.baseFee)} + генерация ${aiFmt(aiState.generationPrices[engine]?.[q]??cost-aiState.baseFee)} = ${aiFmt(cost)} монет`;
+  $('gameAiCost').textContent=!aiState.pricesReady||!Number.isInteger(cost)||cost<=0?'Цена уточняется на сервере…':`Генерация: ${aiFmt(cost)} монет · списание при отправке`;
   $('gameAiSubmit').disabled=!aiState.pricesReady||!Number.isInteger(cost)||cost<=0;
   const meshy=engine==='meshy';$('gameAiQuality').disabled=meshy;
 }
@@ -2946,7 +2990,7 @@ async function aiSubmit(){const btn=$('gameAiSubmit');if(btn.disabled)return;
    aiState.tasks.unshift(task);task.ui=aiRoad(task);task.ui.note.textContent=`Сервер подтвердил оплату: ${aiFmt(task.price)} монет. Обработка…`;aiPoll(task);await aiReloadWallet();
    historyPush('aiOrder',{id:reply.id,engine,quality,source:aiState.source,price:reply.price});
  }catch(e){setStatus('Не удалось отправить заявку');console.warn('[bridge]',e);}
- finally{btn.disabled=false;btn.textContent='Купить генерацию →';}
+ finally{btn.disabled=false;btn.textContent='Отправить запрос →';}
 }
 function aiShow(task){aiState.current=task;openModal('gameAiPreviewPanel');
  const target=$('gameAiPreviewImage');target.replaceChildren();
@@ -3162,6 +3206,25 @@ new MutationObserver(updateLayers21).observe($('sceneObjects'),{childList:true})
 renderLayers21();
 window.ROMEROS_Transform={setMode:setMode21,refresh:renderLayers21,rotate:rotate21};
 
+/* ROMEROS V22 TILE EDITOR: state lives in game module, NOT in DOM extension.
+   Each edit changes both Three.js mesh and matching tileRecords entry. */
+const v22tile={selected:null,drag:false,mode:'select',rotate:0};
+function v22Current(){return v22tile.selected && tileGroup.children.includes(v22tile.selected)?v22tile.selected:null}
+function v22Record(){const m=v22Current();return m?tileRecords[tileGroup.children.indexOf(m)]:null}
+function v22Refresh(){const m=v22Current(),r=v22Record();const label=$('rom22TileSelected');if(label)label.textContent=m?`Плитка · объект ${r.objectId} · текстура #${r.index+1}`:'Выберите установленную плитку нажатием на сцену';if(m){$('rom22TileScale').value=String(m.userData.tileSize||r.size);$('rom22TileScaleLabel').textContent=Number(m.userData.tileSize||r.size).toFixed(2)}}
+function v22Pick(e){const h=hitTile(e);if(!h)return null;const obj=h.object.userData.tile?h.object:h.object.parent;return obj?.userData.tile?obj:null}
+function v22SetMode(x){v22tile.mode=x;setMode('tile-edit');document.querySelectorAll('[data-rom22-tool]').forEach(b=>b.classList.toggle('active',b.dataset.rom22Tool===x));orbit.enabled=true;v22Refresh()}
+function v22Selected(m){v22tile.selected=m;activeTile=m;v22tile.rotate=0;$('rom22TileRotation').value='0';$('rom22TileRotationLabel').textContent='0°';v22Refresh();setStatus('Плитка выбрана. Можно перемещать, вращать, увеличивать, удалять.');}
+function v22Size(n){const m=v22Current(),r=v22Record();if(!m||!r)return;const size=THREE.MathUtils.clamp(Number(n)||r.size,.05,5);snapshot('Размер плитки');r.size=size;m.userData.tileSize=size;m.geometry.dispose();m.geometry=tileBoxGeometry(size,r.depth||m.userData.tileDepth||.10,r.rotation||0,!!r.flip,r.shape||'square');$('rom22TileScaleLabel').textContent=size.toFixed(2);scheduleAutosave()}
+function v22Rot(d){const m=v22Current(),r=v22Record();if(!m||!r)return;snapshot('Поворот плитки');const delta=Number(d)-v22tile.rotate;v22tile.rotate=Number(d);m.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),delta*Math.PI/180));r.quaternion=m.quaternion.toArray();$('rom22TileRotationLabel').textContent=Number(d)+'°';scheduleAutosave()}
+function v22Remove(){const m=v22Current();if(!m)return;const index=tileGroup.children.indexOf(m);snapshot('Удаление плитки');tileGroup.remove(m);tileRecords.splice(index,1);m.geometry.dispose();v22tile.selected=null;activeTile=null;v22Refresh();renderTileLibrary();scheduleAutosave()}
+function v22Repaint(){const m=v22Current();if(!m)return;snapshot('Замена текстуры плитки');applyTextureToTile(m,selected,+$('textureRotation').value,$('textureFlip').checked);v22Refresh()}
+renderer.domElement.addEventListener('pointerdown',e=>{if(mode!=='tile-edit'||e.button!==0)return;e.stopImmediatePropagation();e.preventDefault();const m=v22Pick(e);if(m){v22Selected(m);v22tile.drag=v22tile.mode==='move';if(v22tile.drag){snapshot('Перемещение плитки');renderer.domElement.setPointerCapture(e.pointerId)}}},true);
+renderer.domElement.addEventListener('pointermove',e=>{if(mode!=='tile-edit'||!v22tile.drag)return;e.stopImmediatePropagation();const m=v22Current(),r=v22Record();if(!m||!r)return;const hit=hitModel(e);if(!hit)return;const normal=getNormal(hit),pos=hit.point.clone().addScaledVector(normal,(r.depth||.1)/2+.012);m.position.copy(pos);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),normal);r.position=pos.toArray();r.quaternion=m.quaternion.toArray();scheduleAutosave()},true);
+renderer.domElement.addEventListener('pointerup',e=>{if(mode==='tile-edit'){v22tile.drag=false;if(renderer.domElement.hasPointerCapture?.(e.pointerId))renderer.domElement.releasePointerCapture(e.pointerId);e.stopImmediatePropagation()}},true);
+window.ROMEROS_TileEdit={open:()=>{openModal('rom22TilePanel');v22SetMode('select')},refresh:v22Refresh,setMode:v22SetMode,resize:v22Size,rotate:v22Rot,remove:v22Remove,repaint:v22Repaint,pick:v22Selected};
+
+
 </script>
 
 <script>
@@ -3239,8 +3302,8 @@ window.addEventListener('load',()=>{
  </section>
 </div>
 <!-- ===== ROMEROS v13 / ПОКУПКА ТЕКСТУРЫ ===== -->
-<div class="modal rom13-window" id="rom13TexturePanel" aria-label="Покупка текстуры">
- <div class="actions"><h2 style="flex:1">Покупка текстуры</h2><button type="button" id="rom13TextureClose">Закрыть</button></div>
+<div class="modal rom13-window" id="rom13TexturePanel" aria-label="Генерация текстуры">
+ <div class="actions"><h2 style="flex:1">Генерация текстуры</h2><button type="button" id="rom13TextureClose">Закрыть</button></div>
  <p class="note">Узор создаётся по тексту, фото либо по рисунку из редактора плиток.</p>
  <label class="rom13-field">ИИ-генератор<select id="rom13TextureEngine"><option value="gpt">GPT Image API</option><option value="sd15">SD 1.5 · локальная NVIDIA</option></select></label>
  <label class="rom13-field">Размер готовой плитки<select id="rom13TextureQuality"><option value="standard">512 × 512</option><option value="high" selected>1000 × 1000</option></select></label>
@@ -3248,7 +3311,7 @@ window.addEventListener('load',()=>{
  <label class="rom13-field">Изображение-референс<input type="file" id="rom13TexturePhoto" accept="image/png,image/jpeg,image/webp"></label>
  <label class="rom13-check"><input id="rom13TextureDrawing" type="checkbox"> Использовать текущий рисунок плитки из борда</label>
  <div class="rom13-cost" id="rom13TexturePrice">Проверяем тариф GUI…</div>
- <div class="game-ai-actions"><button type="button" class="game-ai-primary" id="rom13TextureSend">Купить генерацию текстуры</button><button type="button" id="rom13TextureHistory">Мои заказы</button></div>
+ <div class="game-ai-actions"><button type="button" class="game-ai-primary" id="rom13TextureSend">Сгенерировать текстуру</button><button type="button" id="rom13TextureHistory">Мои заказы</button></div>
  <div id="rom13TextureTasks" class="game-ai-tasks" aria-live="polite"></div>
 </div>
 <!-- ===== ROMEROS v13 / ПОЛНОЭКРАННЫЙ GLB ПРОСМОТРЩИК ===== -->
@@ -3316,7 +3379,7 @@ window.addEventListener('load',()=>{
     <label>Описание для AI<textarea id="rom16Prompt" maxlength="800" placeholder="Доработать узор: малахит, янтарные прожилки, гжель…"></textarea></label>
     <label>Размер подготовленного квадратного эскиза<select id="rom16ExportSize"><option value="1024">1024 × 1024</option><option value="2048" selected>2048 × 2048</option><option value="4096">4096 × 4096</option><option value="8192">8192 × 8192 · ПК</option></select></label>
     <div class="rom16-buttons"><button id="rom16Save">Сохранить рисунок</button><button id="rom16Download">Скачать PNG</button><button id="rom16ExportProject">Проект JSON</button><button id="rom16ImportProject">Открыть JSON</button></div>
-    <div class="rom16-buttons rom16-primary-actions"><button id="rom16ToTexture">✧ Доработать текстуру</button><button id="rom16ToModel">⬡ Создать 3D-плитку</button></div>
+    <div class="rom16-buttons rom16-primary-actions"><button id="rom22PatternIdeas" type="button">✧ Варианты узора · 15 монет</button><button id="rom16ToTexture">✧ Доработать текстуру</button><button id="rom16ToModel">⬡ Создать 3D-плитку</button></div>
     <small>Изображение преобразуется в квадрат и сжимается до 20 МиБ для GUI (8192×8192 на ПК, на мобильных лучше 4096×4096). Облачные генераторы требуют подключения сервера и оплачиваются по его прайсу.</small>
    </div>
   </div>
@@ -3338,4 +3401,4 @@ window.addEventListener('load',()=>{
   <div class="rom20-tariff-actions"><button id="rom20TariffTexture">Создать текстуру</button><button id="rom20TariffModel">Создать 3D</button></div>
   <p id="rom20TariffBalance" class="rom20-hint">Загрузка баланса…</p>
 </div>
-<script type="module" src="/game/romeros_v20.js"></script><script src="/game/romeros_app.js" defer></script></body></html>
+<script type="module" src="/game/romeros_v20.js"></script><script src="/game/romeros_app.js" defer></script><script src="/game/romeros_v22.js" defer></script></body></html>
