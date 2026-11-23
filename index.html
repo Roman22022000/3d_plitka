@@ -449,6 +449,115 @@ button{ -webkit-tap-highlight-color:transparent }
 @media(max-width:750px){.rom16-main{grid-template-columns:minmax(0,1fr)!important}.rom16-panel{width:100%;max-width:100vw;overflow-x:hidden}.rom16-controls{min-width:0}.rom16-editor canvas{max-width:100%}}
 @media(max-width:380px){.rom16-buttons button{flex:1 1 calc(50% - 5px)}.game-ai-tasks .steps{gap:2px}.game-ai-tasks .step{font-size:8px}}
 @media(max-width:380px){#bottomDock>button{flex:0 1 auto;min-width:0;max-width:23vw;overflow:hidden;text-overflow:ellipsis}}
+
+/* ============================================================================
+   ROMEROS v19 · COMPACT ADAPTIVE WINDOWS
+   Все изменения размеров окон находятся здесь, в конце CSS. Старые стили
+   сохраняются для совместимости, но переопределяются в этом разделе.
+
+   --r19-window: обычные диалоги; --r19-ai: AI-заявки;
+   --r19-editor: редактор плитки; --r19-height: высота диалога.
+   Диалог центрируется, не перекрывает весь экран и прокручивается внутри.
+   ============================================================================ */
+:root {
+  --r19-window: 430px;
+  --r19-ai: 510px;
+  --r19-editor: 660px;
+  --r19-height: 76dvh;
+  --r19-gap: 12px;
+}
+/* Обычные меню, профиль, магазин, AI, генерация и архив моделей. */
+.modal,
+.modal.open,
+#profilePanel,#marketPanel,#archivePanel,#drawingPanel,
+#rom14Panel,.rom13-window,.game-ai-order,.game-ai-preview {
+  position:fixed!important;
+  inset:auto!important;
+  left:50%!important;
+  top:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:translate(-50%,-50%)!important;
+  width:min(var(--r19-window),calc(100vw - 2 * var(--r19-gap)))!important;
+  max-width:calc(100vw - 2 * var(--r19-gap))!important;
+  max-height:min(var(--r19-height),calc(100dvh - 2 * var(--r19-gap)))!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  padding:12px!important;
+  border-radius:14px!important;
+  box-shadow:none!important;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
+/* Широким настройкам графики нужен немного больший, но всё же компактный диалог. */
+.game-ai-order,.game-ai-preview,.rom13-window,#rom14Panel {
+  width:min(var(--r19-ai),calc(100vw - 2 * var(--r19-gap)))!important;
+}
+#drawingPanel{width:min(var(--r19-ai),calc(100vw - 2 * var(--r19-gap)))!important}
+.modal h2,.rom14-head h2{font-size:15px!important;line-height:1.3}
+.modal .actions{gap:5px!important}
+/* Заявка 3D не обязана открывать полноэкранное окно. */
+.rom13-viewer:not([hidden]){
+  inset:auto!important;
+  left:50%!important;top:50%!important;right:auto!important;bottom:auto!important;
+  transform:translate(-50%,-50%)!important;
+  width:min(720px,calc(100vw - 24px))!important;
+  height:min(73dvh,650px)!important;
+  min-height:270px;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 0 0 100vmax #040a1199;
+}
+.rom13-viewerbar{height:auto!important;min-height:40px!important;padding:6px 9px!important}
+.rom13-viewer-controls{padding:6px!important;gap:5px!important}
+.rom13-viewer-controls button{padding:7px!important;font-size:11px!important}
+.rom13-viewerhint{padding:5px!important}
+.rom15-model-canvas{height:clamp(170px,29dvh,270px)!important}
+/* Создание плитки: компактное окно, настройки прокручиваются независимо. */
+.rom16-overlay{padding:var(--r19-gap)!important;align-items:center!important;justify-items:center!important}
+.rom16-panel,.rom16-history-panel,.rom16-output {
+  width:min(var(--r19-editor),calc(100vw - 2 * var(--r19-gap)))!important;
+  max-width:calc(100vw - 2 * var(--r19-gap))!important;
+  max-height:min(80dvh,calc(100dvh - 2 * var(--r19-gap)))!important;
+  padding:11px!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  border-radius:14px!important;
+}
+.rom16-main{grid-template-columns:minmax(0,1fr) minmax(210px,245px)!important;gap:10px!important}
+.rom16-editor canvas{width:min(100%,305px,37dvh)!important;height:auto!important}
+.rom16-controls{max-height:min(66dvh,570px)!important;overflow-y:auto!important}
+.rom16-image-container,.game-ai-preview-frame{width:min(100%,310px,39dvh)!important;max-width:100%!important}
+.rom15-archive-window{width:min(530px,calc(100vw - 24px))!important;max-height:76dvh!important;padding:12px!important}
+.rom14-popup{max-width:calc(100vw - 24px)}
+/* Длинные заголовки и имена файлов не расширяют окно. */
+:is(.modal,.rom16-panel,.rom15-archive-window,.rom14-body) :is(input,select,textarea,img,canvas){max-width:100%;min-width:0}
+:is(.modal,.rom16-panel,.rom15-archive-window){overflow-wrap:anywhere}
+/* Мобильный экран: компактное центрирование вместо прежней full-width bottom sheet. */
+@media(max-width:750px){
+  :root{--r19-window:420px;--r19-ai:460px;--r19-editor:465px;--r19-height:76dvh;--r19-gap:12px}
+  .rom16-main{grid-template-columns:minmax(0,1fr)!important}
+  .rom16-editor canvas{width:min(100%,290px,32dvh)!important}
+  .rom16-controls{max-height:none!important;overflow:visible!important}
+  .rom16-panel{max-height:79dvh!important}
+  .rom16-head{position:sticky;top:-11px;background:var(--r16-panel);z-index:3;padding:3px 0 7px}
+  .rom13-viewer:not([hidden]){width:calc(100vw - 24px)!important;height:min(68dvh,560px)!important}
+  .rom13-viewer-controls button{flex:1 1 27%!important;font-size:10px!important}
+  .rom15-model-canvas{height:min(29dvh,220px)!important}
+}
+@media(max-width:380px){
+  :root{--r19-gap:9px;--r19-height:73dvh}
+  .modal,#rom14Panel,.rom13-window,.game-ai-order,.game-ai-preview{padding:9px!important}
+  .rom16-panel{padding:8px!important}
+  .rom16-editor canvas{width:min(100%,245px,29dvh)!important}
+  .rom13-viewer:not([hidden]){height:66dvh!important}
+}
+@media(max-height:540px){
+  :root{--r19-height:85dvh}
+  .rom16-panel{max-height:88dvh!important}
+  .rom13-viewer:not([hidden]){height:85dvh!important;min-height:180px}
+}
+
 </style>
 <script>
 // Ошибки диагностики выводим разработчику в консоль, но не игроку.
