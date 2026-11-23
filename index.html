@@ -1,4 +1,4 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>3D Plitka — Sculpt Studio</title>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ROMEROS PLITKA — Sculpt App</title><meta name="theme-color" content="#172638"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="manifest" href="/game/manifest.webmanifest"><link rel="icon" href="/game/app-icon.svg" type="image/svg+xml">
 <style>
 /* ===============================================================
    UI — базовые цвета, компоновка, панели, редактор, мобильные экраны
@@ -573,6 +573,68 @@ button{ -webkit-tap-highlight-color:transparent }
 .rom20-tariff p{font-size:11px;line-height:1.6;color:#a9bfd0}.rom20-tariff-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px;background:#263b4f;border-radius:9px;margin:6px 0;font-size:12px}
 .rom20-tariff-row b{color:#83dbad;white-space:nowrap}.rom20-tariff-actions{display:flex;gap:6px;margin-top:10px}.rom20-tariff-actions button{flex:1;background:#28648d;border:0}
 @media(max-width:600px){.rom20-tariff{padding:12px}.rom20-sym-buttons button{font-size:11px}.rom20-tariff-row{font-size:11px}}
+
+/* ===============================================================
+ ROMEROS APP v21 — единая компактная адаптивная тема.
+ Менять палитру здесь; расположение и высота окна вычисляются через dvh.
+ =============================================================== */
+:root {--app-panel:#192938;--app-card:#263a4f;--app-accent:#3390ec;--app-text:#eaf3ff;--app-radius:14px;--app-scroll:#456581}
+html,body {margin:0;max-width:100%;overscroll-behavior:none}
+body{min-width:0!important}
+/* Скролл в окнах — одновременно мышью, тачем, колесом */
+.modal,.rom14-body,.rom16-panel,.rom15-archive-window,.rom13-window,.rom14-popup,
+.rom16-controls,.rom15-inline-result {overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--app-scroll) transparent;-webkit-overflow-scrolling:touch}
+.modal::-webkit-scrollbar,.rom14-body::-webkit-scrollbar,.rom16-panel::-webkit-scrollbar,
+.rom16-controls::-webkit-scrollbar,.rom15-archive-window::-webkit-scrollbar{width:6px}
+.modal::-webkit-scrollbar-thumb,.rom16-panel::-webkit-scrollbar-thumb,
+.rom16-controls::-webkit-scrollbar-thumb,.rom15-archive-window::-webkit-scrollbar-thumb{background:var(--app-scroll);border-radius:8px}
+/* Специфичность + !important исправляют поздние мобильные переопределения v14-v20 */
+body .modal,body .modal.open,body #rom14Panel,body #profilePanel,body #marketPanel,
+body .game-ai-order,body .game-ai-preview,body .rom13-window,body .sculpt-v5-modal {
+ position:fixed!important;left:50%!important;right:auto!important;top:50%!important;bottom:auto!important;
+ transform:translate(-50%,-50%)!important;width:min(490px,calc(100vw - 28px))!important;
+ max-width:calc(100vw - 28px)!important;max-height:min(74dvh,690px)!important;
+ padding:14px!important;border:0!important;border-radius:var(--app-radius)!important;
+ overflow-x:hidden!important;overflow-y:auto!important;background:var(--app-panel)!important;box-shadow:0 16px 46px #0006!important;
+}
+body #rom14Panel{width:min(520px,calc(100vw - 28px))!important}
+body #rom13ModelPanel,body #rom13TexturePanel{width:min(510px,calc(100vw - 28px))!important}
+body #drawingPanel{width:min(520px,calc(100vw - 28px))!important}
+body #rom16EditorPanel,body .rom16-panel{max-width:min(740px,calc(100vw - 24px))!important}
+body .rom16-overlay .rom16-panel{max-height:min(82dvh,800px)!important}
+body #rom13Viewer{max-height:100dvh}
+body #rom13Viewer .rom13-viewer-canvas{min-height:0}
+body .rom15-archive-window{width:min(590px,calc(100vw - 26px))!important;max-height:77dvh!important}
+body .rom14-popup{max-height:min(70dvh,450px)!important;overflow:auto!important}
+/* app-like tool controls */
+#rom21ObjectPanel {display:grid;gap:7px;margin:8px 0;padding:10px;border-radius:12px;background:#22364a}
+#rom21ObjectPanel select,#rom21ObjectPanel input{min-width:0;background:#30475b;border:0;border-radius:7px;padding:8px;color:var(--app-text);font:inherit}
+#rom21ObjectPanel .rom21-row{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+#rom21ObjectPanel .rom21-row>*{flex:1 1 75px}
+#rom21ObjectPanel button{border:0;border-radius:8px;background:#35546e;padding:8px;white-space:normal}
+#rom21ObjectPanel button.active{background:var(--app-accent);color:#071a2b}
+#rom21ObjectPanel .rom21-label{font-size:11px;color:#a8bfd4}
+#rom21ObjectPanel input[type=number]{width:100%}
+#rom21ObjectPanel input[type=text]{width:100%}
+.rom21-app-rail button{display:inline-flex!important;gap:5px;align-items:center;justify-content:center}
+.rom21-app-rail button svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#rom14Panel .rom14-body button{min-height:35px}
+#rom21ObjectPanel input:focus-visible,#rom21ObjectPanel button:focus-visible {outline:2px solid var(--app-accent)}
+@media(max-width:700px){
+ body .modal,body .modal.open,body #rom14Panel,body #profilePanel,body #marketPanel,
+ body .game-ai-order,body .game-ai-preview,body .rom13-window,body .sculpt-v5-modal {
+ width:calc(100vw - 24px)!important;max-width:440px!important;max-height:min(72dvh,calc(100dvh - 24px))!important;
+ left:50%!important;top:50%!important;bottom:auto!important;right:auto!important;transform:translate(-50%,-50%)!important;
+ }
+ body .rom16-panel{max-width:calc(100vw - 16px)!important;max-height:84dvh!important}
+ body .rom16-main{display:grid!important;grid-template-columns:minmax(0,1fr)!important}
+ body .rom16-editor canvas{width:min(100%,36dvh)!important}
+ #rom21ObjectPanel{padding:7px}
+}
+@media(max-width:380px){body .modal,body #rom14Panel{width:calc(100vw - 14px)!important;padding:9px!important}#rom21ObjectPanel .rom21-row>*{flex:1 1 45%}}
+@media(max-height:550px){body .modal,body .modal.open,body #rom14Panel,body .rom13-window{max-height:78dvh!important}body .rom16-panel{max-height:92dvh!important}}
+@media(prefers-reduced-motion:reduce){.modal,.rom16-overlay{scroll-behavior:auto!important}}
+
 </style>
 <script>
 // Ошибки диагностики выводим разработчику в консоль, но не игроку.
@@ -605,6 +667,7 @@ window.addEventListener('unhandledrejection', e => { console.warn('[ROMEROS inte
 })();
 </script>
 </head><body>
+<input id="rom21File" type="file" accept=".glb,model/gltf-binary" hidden>
 <input type="file" id="gameTileFolder" webkitdirectory multiple accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp" hidden>
 <input type="file" id="gameTileSingles" multiple accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp" hidden>
 
@@ -800,12 +863,12 @@ window.addEventListener('unhandledrejection', e => { console.warn('[ROMEROS inte
   <div class="game-ai-actions"><button id="gameAiDownload" type="button">Скачать</button><button id="gameAiAdd" type="button" class="game-ai-primary">Добавить в мои плитки</button><button id="gameAiWarehouse" type="button">На склад</button></div>
 </div>
 <div id="morePanel" class="modal"><div class="actions"><h2 style="flex:1">Информация</h2><button id="closeMore">Закрыть</button></div>
-<img class="menu-hero" src="./plitka_assets/menu.png" alt="Главное меню студии">
+<img class="menu-hero" src="/plitka_assets/menu.jpg" onerror="this.style.display='none'" alt="Главное меню студии">
 <div class="menu-tabs iconMenuTabs">
-<button class="active" data-info-tab="about"><img src="./plitka_assets/icons_menu/about.png" alt="" loading="lazy">О игре</button>
-<button data-info-tab="support"><img src="./plitka_assets/icons_menu/support.png" alt="" loading="lazy">Техподдержка</button>
-<button data-info-tab="donate"><img src="./plitka_assets/icons_menu/donate.png" alt="" loading="lazy">Донат</button></div>
-<img class="menu-hero" id="infoHero" src="./plitka_assets/about.png" alt="Раздел информации">
+<button class="active" data-info-tab="about"><img src="/plitka_assets/icons_menu/about.jpg" onerror="this.style.display='none'" alt="" loading="lazy">О игре</button>
+<button data-info-tab="support"><img src="/plitka_assets/icons_menu/support.jpg" onerror="this.style.display='none'" alt="" loading="lazy">Техподдержка</button>
+<button data-info-tab="donate"><img src="/plitka_assets/icons_menu/donate.jpg" onerror="this.style.display='none'" alt="" loading="lazy">Донат</button></div>
+<img class="menu-hero" id="infoHero" src="/plitka_assets/about.jpg" onerror="this.style.display='none'" alt="Раздел информации">
 <h2 id="infoTitle">О игре</h2><div id="infoText" class="menu-text"></div>
 <div id="supportForm" style="display:none"><input id="supportSubject" type="text" maxlength="80" placeholder="Тема обращения"><textarea id="supportMessage" maxlength="1500" placeholder="Опишите проблему, браузер и шаги воспроизведения"></textarea><button id="supportCopy">Скопировать обращение</button><p class="uploadHint">Сообщение не отправляется автоматически: скопируйте его и передайте разработчику.</p></div>
 </div>
@@ -870,6 +933,24 @@ window.addEventListener('unhandledrejection', e => { console.warn('[ROMEROS inte
     <div class="actions"><h2 style="flex:1">Объекты сцены</h2><button id="closeObjects">Закрыть</button></div>
     <div class="actions"><button data-add-object="sphere">+ Сфера</button><button data-add-object="cube">+ Куб</button><button data-add-object="plane">+ Плоскость</button><button data-add-object="torus">+ Тор</button></div>
     <p class="note">Выберите объект для лепки. Новые объекты независимы, каждый имеет собственную сетку. Плитки и скульптинг применяются только к активному.</p>
+    
+    <!-- v21: Photoshop-подобная панель слоёв/трансформаций. События в главном модуле игры. -->
+    <section id="rom21ObjectPanel" aria-label="Параметры выбранного объекта">
+      <label class="rom21-label" for="rom21ObjectSelect">Активный 3D-объект / слой</label>
+      <select id="rom21ObjectSelect" aria-label="Выбор модели из сцены"></select>
+      <label class="rom21-label" for="rom21ObjectName">Название модели</label>
+      <div class="rom21-row"><input id="rom21ObjectName" type="text" maxlength="70" placeholder="Моя модель"><button id="rom21Rename" type="button">Переименовать</button></div>
+      <div class="rom21-row rom21-app-rail">
+        <button type="button" id="rom21Select" title="Выбор модели">Выбор</button>
+        <button type="button" id="rom21Move" title="Перемещение модели как в редакторе">↔ Move</button>
+        <button type="button" id="rom21Rotate" title="Вращение модели">↻ Rotate</button>
+        <button type="button" id="rom21Scale" title="Масштабирование">□ Scale</button>
+      </div>
+      <div class="rom21-row"><button id="rom21RotX" type="button">X +15°</button><button id="rom21RotY" type="button">Y +15°</button><button id="rom21RotZ" type="button">Z +15°</button></div>
+      <div class="rom21-row"><button id="rom21Import" type="button">＋ Загрузить GLB</button><button id="rom21Archive" type="button">▣ Из архива</button></div>
+      <p class="rom21-label">Перетаскивайте цветные стрелки в 3D. Каждая модель — отдельный слой. Все приклеенные плитки двигаются и вращаются вместе с выбранным объектом. Зона X/Z: −5000…5000.</p>
+    </section>
+
     <div id="sceneObjects" class="sculpt-v5-list"></div>
     <div class="actions" style="align-items:center">
       <label>X <input id="objectX" type="number" step="0.1" style="width:82px;background:#0d1826;color:white;border:1px solid #415976;border-radius:6px;padding:5px"></label>
@@ -894,6 +975,7 @@ window.addEventListener('unhandledrejection', e => { console.warn('[ROMEROS inte
    ============================================================ */
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {TransformControls} from 'three/addons/controls/TransformControls.js';
 import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {SimplifyModifier} from 'three/addons/modifiers/SimplifyModifier.js';
@@ -2568,7 +2650,7 @@ const INFO={
  support:{title:'Техподдержка',img:'support',text:'Возникла ошибка загрузки, сохранения или отображения плиток? Укажите устройство, браузер, название инструмента и действия, после которых возникла проблема. Для восстановления проекта используйте архив или импорт JSON. Ниже можно подготовить обращение для разработчика.'},
  donate:{title:'Донат',img:'donate',text:'Поддержка разработки помогает создавать новые плитки, 3D-инструменты, борды и игровые события. Реальные платежи в этой версии не подключены. Раздел носит информационный характер; приложение не запрашивает банковские данные.'}
 };
-function showInfo(k){const v=INFO[k];$('infoHero').src=`./plitka_assets/${v.img}.png`;$('infoTitle').textContent=v.title;$('infoText').textContent=v.text;$('supportForm').style.display=k==='support'?'block':'none';document.querySelectorAll('[data-info-tab]').forEach(b=>b.classList.toggle('active',b.dataset.infoTab===k))}
+function showInfo(k){const v=INFO[k];$('infoHero').style.display='block';$('infoHero').src=`/plitka_assets/${v.img}.jpg`;$('infoTitle').textContent=v.title;$('infoText').textContent=v.text;$('supportForm').style.display=k==='support'?'block':'none';document.querySelectorAll('[data-info-tab]').forEach(b=>b.classList.toggle('active',b.dataset.infoTab===k))}
 document.querySelectorAll('[data-info-tab]').forEach(b=>b.onclick=()=>showInfo(b.dataset.infoTab));
 $('supportCopy').onclick=async()=>{const t='Техподдержка 3D Plitka\nТема: '+$('supportSubject').value+'\n'+$('supportMessage').value;try{await navigator.clipboard.writeText(t);setStatus('Обращение скопировано')}catch{setStatus('Не удалось скопировать. Выделите текст вручную.')}};
 
@@ -2734,7 +2816,7 @@ window.addEventListener('pagehide',()=>{
   // Меню: PNG без запасных Base64/JPG; путь от корня проекта.
   // Не используем MutationObserver для подмены src: он создавал лишние загрузки.
   const menuPreview=document.querySelector('#morePanel > img.menu-hero');
-  if(menuPreview) menuPreview.src='./plitka_assets/menu.png';
+  if(menuPreview) menuPreview.src='/plitka_assets/menu.jpg';
   for(const img of document.querySelectorAll('#morePanel img.menu-hero')){
     img.addEventListener('error',()=>{
       console.error('[PLITKA] Отсутствует изображение меню:',img.src);
@@ -2941,7 +3023,7 @@ renderSceneObjects();renderHistorySteps();updateSelectedWire();
    Исходный экспорт JSON сцены сохраняет геометрию, но не внешние GLB материалы.
 */
 window.ROMEROS_GameScene = {
- async importGLB(url){
+ async importGLB(url, displayName="Импорт GLB"){
   const data=await new GLTFLoader().loadAsync(url);
   data.scene.updateMatrixWorld(true);
   const parts=[];
@@ -2963,7 +3045,7 @@ window.ROMEROS_GameScene = {
   for(const part of parts){
    part.geo.translate(-center.x,-center.y,-center.z);part.geo.scale(factor,factor,factor);
    const m=newMesh('custom',part.geo);
-   m.userData.name='GLB импорт '+m.userData.objectId;
+   m.userData.name=String(displayName).slice(0,65)+(parts.length>1?' · '+(models.length+1):'');
    m.material=part.material;
    m.position.x=(models.length%5-2)*1.4;
    models.push(m);scene.add(m);last=m;
@@ -2990,6 +3072,95 @@ window.ROMEROS_GameScene = {
  },
  get bounds(){return {width:SCENE_EDGE,depth:SCENE_EDGE,min:-SCENE_HALF,max:SCENE_HALF}}
 };
+
+
+/* ================================================================
+ ROMEROS v21 — слои 3D / gizmo Move · Rotate · Scale
+ Geometry stays in existing model list, sculpt and tile workflows reused.
+ IMPORTANT: tiles are independent meshes in old engine; sync transforms
+ for tiles owned by selected object. Undo snapshot before drag.
+ ================================================================ */
+const transform21=new TransformControls(camera,renderer.domElement);
+scene.add(transform21.getHelper());
+let transformMode21='select', isGizmoDragging21=false,previousTransform21=null;
+const objectSelect21=$('rom21ObjectSelect');
+const show21=(text)=>setStatus(text);
+function capture21(){
+ if(!model)return null;
+ return {position:model.position.clone(),quaternion:model.quaternion.clone(),scale:model.scale.clone()};
+}
+function applyTileTransform21(before,after){
+ if(!before||!after||!model)return;
+ const dq=after.quaternion.clone().multiply(before.quaternion.clone().invert());
+ const k=new THREE.Vector3(after.scale.x/Math.max(1e-6,before.scale.x),after.scale.y/Math.max(1e-6,before.scale.y),after.scale.z/Math.max(1e-6,before.scale.z));
+ for(let i=0;i<tileRecords.length;i++){
+  const r=tileRecords[i];if(r.objectId!==model.userData.objectId)continue;
+  const tile=tileGroup.children[i];if(!tile)continue;
+  const offset=tile.position.clone().sub(before.position).applyQuaternion(before.quaternion.clone().invert()).multiply(k).applyQuaternion(after.quaternion);
+  tile.position.copy(after.position).add(offset);
+  tile.quaternion.premultiply(dq);
+  tile.scale.multiply(k);
+  r.position=tile.position.toArray();r.quaternion=tile.quaternion.toArray();
+ }
+ updateSelectedWire();scheduleAutosave();
+}
+function renderLayers21(){
+ if(!objectSelect21)return;
+ const active=model?.userData.objectId;
+ objectSelect21.replaceChildren();
+ for(const m of models){const o=document.createElement('option');o.value=String(m.userData.objectId);o.textContent=m.userData.name;objectSelect21.append(o)}
+ if(active!=null)objectSelect21.value=String(active);
+ const inp=$('rom21ObjectName');if(inp&&document.activeElement!==inp)inp.value=model?.userData.name||'';
+ if(transformMode21!=='select'&&model){transform21.attach(model);transform21.setMode(transformMode21)}else transform21.detach();
+ for(const mode of ['Select','Move','Rotate','Scale'])$('rom21'+mode)?.classList.toggle('active',transformMode21===mode.toLowerCase());
+}
+function setMode21(mode){
+ if(!['select','translate','rotate','scale'].includes(mode))return;
+ transformMode21=mode;
+ if(mode==='select')transform21.detach();else if(model){transform21.attach(model);transform21.setMode(mode)}
+ for(const [id,m] of [['Select','select'],['Move','translate'],['Rotate','rotate'],['Scale','scale']])$('rom21'+id)?.classList.toggle('active',mode===m);
+ show21('3D · '+mode+' · выделен '+(model?.userData.name||'нет объекта'));
+}
+transform21.addEventListener('dragging-changed',e=>{
+ isGizmoDragging21=e.value;orbit.enabled=!e.value;
+ if(e.value&&model){snapshot('Трансформация '+model.userData.name);previousTransform21=capture21()}
+ else if(model){renderSceneObjects();renderLayers21();scheduleAutosave()}
+});
+transform21.addEventListener('objectChange',()=>{
+ if(!model||!previousTransform21)return;
+ const current=capture21();
+ // Scene 10000x10000 boundary. Position changes are authoritative.
+ model.position.x=THREE.MathUtils.clamp(model.position.x,-SCENE_HALF,SCENE_HALF);
+ model.position.z=THREE.MathUtils.clamp(model.position.z,-SCENE_HALF,SCENE_HALF);
+ model.position.y=THREE.MathUtils.clamp(model.position.y,-SCENE_HALF,SCENE_HALF);
+ const bounded=capture21();applyTileTransform21(previousTransform21,bounded);previousTransform21=bounded;
+ updateMeshStats();
+});
+function rename21(){if(!model)return;const name=String($('rom21ObjectName').value||'').trim();if(!name)return show21('Введите имя модели');
+ snapshot('Переименование объекта');model.userData.name=name.slice(0,70);renderSceneObjects();renderLayers21();updateMeshStats();scheduleAutosave()}
+function rotate21(axis){if(!model)return;const prev=capture21();snapshot('Поворот '+axis+' +15°');model.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(axis==='x'?1:0,axis==='y'?1:0,axis==='z'?1:0),Math.PI/12));applyTileTransform21(prev,capture21());updateSelectedWire();scheduleAutosave()}
+objectSelect21?.addEventListener('change',()=>selectSceneObject(Number(objectSelect21.value)));
+$('rom21Rename')?.addEventListener('click',rename21);
+$('rom21Select')?.addEventListener('click',()=>setMode21('select'));
+$('rom21Move')?.addEventListener('click',()=>setMode21('translate'));
+$('rom21Rotate')?.addEventListener('click',()=>setMode21('rotate'));
+$('rom21Scale')?.addEventListener('click',()=>setMode21('scale'));
+for(const axis of ['X','Y','Z'])$('rom21Rot'+axis)?.addEventListener('click',()=>rotate21(axis.toLowerCase()));
+$('rom21Import')?.addEventListener('click',()=>window.ROMEROS_App?.pickGLB());
+$('rom21Archive')?.addEventListener('click',()=>window.ROMEROS_Workspace?.openArchive());
+// Paint/sculpt buttons continue to use model variable; sync the selector after selection.
+const originalSelectScene21=window.ROMEROS_GameScene.select;
+window.ROMEROS_GameScene.select=id=>{const result=originalSelectScene21(id);renderLayers21();return result};
+const originalImportGLB21=window.ROMEROS_GameScene.importGLB;
+window.ROMEROS_GameScene.importGLB=async(url,name)=>{
+ const result=await originalImportGLB21(url,name);
+ renderLayers21();return result;
+};
+// Original selectSceneObject is lexical function; enrich it via an event microtask in render routine.
+const updateLayers21=()=>{if(!isGizmoDragging21)renderLayers21()};
+new MutationObserver(updateLayers21).observe($('sceneObjects'),{childList:true});
+renderLayers21();
+window.ROMEROS_Transform={setMode:setMode21,refresh:renderLayers21,rotate:rotate21};
 
 </script>
 
@@ -3167,4 +3338,4 @@ window.addEventListener('load',()=>{
   <div class="rom20-tariff-actions"><button id="rom20TariffTexture">Создать текстуру</button><button id="rom20TariffModel">Создать 3D</button></div>
   <p id="rom20TariffBalance" class="rom20-hint">Загрузка баланса…</p>
 </div>
-<script type="module" src="/game/romeros_v20.js"></script></body></html>
+<script type="module" src="/game/romeros_v20.js"></script><script src="/game/romeros_app.js" defer></script></body></html>
